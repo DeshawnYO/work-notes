@@ -1,0 +1,32 @@
+name: 缺陷反馈
+description: 报告可复现的功能或界面问题
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "请使用虚拟数据，不上传数据库、模型密钥或真实工作资料。安全问题见 SECURITY.md。"
+  - type: input
+    id: version
+    attributes:
+      label: 产品版本或源码提交
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 运行环境
+      description: "系统、Python、浏览器、源码运行或安装版"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 最小复现步骤、预期与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 证据与影响
+      description: "脱敏错误或虚拟数据截图，发生频率和临时处理方式"

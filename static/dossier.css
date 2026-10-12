@@ -1,0 +1,57 @@
+/* V2.1 快速创建与项目档案章节。 */
+.quick-compose{padding:2px 0}
+.quick-form{display:grid;grid-template-columns:minmax(0,1fr) 168px auto;gap:10px}
+.quick-form #quick-title{width:100%;font-size:13.5px}
+.quick-form #quick-project{width:100%;font-size:12px}
+.quick-settings{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:10px}
+.quick-interrupt{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--ink2);cursor:pointer;white-space:nowrap}
+.quick-interrupt input{width:14px;height:14px}
+.quick-priorities{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.quick-priority-caption{font-size:11px;color:var(--ink4);margin-right:2px}
+.priority-chip{border:1px solid var(--line);background:var(--surface);color:var(--ink2);border-radius:6px;font-size:12px;padding:5px 10px;min-height:28px}
+.priority-chip:hover{border-color:var(--ink4);color:var(--ink)}
+.priority-chip.active{border-color:var(--ink);color:var(--ink);font-weight:600}
+.priority-chip.active[data-q="11"]{border-color:var(--accent);color:var(--accent)}
+.quick-context{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink3);margin-top:9px}
+.quick-context button{border:0;background:transparent;color:var(--ink4);font-size:13px;padding:0 3px}
+.quick-context button:hover{color:var(--danger)}
+/* 档案工具条与整理状态 */
+.dossier-toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:16px 0}
+.dossier-template-state{font-size:12px;color:var(--accent);font-weight:500}
+.dossier-toolbar .hint{margin-top:3px;font-size:11px}
+.dossier-toolbar>.row{justify-content:flex-end}
+.dossier-job{display:flex;gap:10px;align-items:baseline;border-left:2px solid var(--accent);background:var(--accent-soft);padding:10px 14px;margin:0 0 16px;font-size:12px;line-height:1.6}
+.dossier-job strong{display:inline-flex;gap:6px;align-items:center;flex:none}
+.dossier-job span{min-width:0;overflow-wrap:anywhere}
+.dossier-job.error{border-left-color:var(--danger);background:#FBF3F1;color:var(--danger)}
+.dossier-intro{margin-bottom:16px}
+/* 章节标签 */
+.dossier-tabs{display:flex;flex-wrap:wrap;gap:2px 18px;border-bottom:1px solid var(--line)}
+.dossier-tab{display:inline-flex;align-items:baseline;gap:7px;max-width:100%;padding:9px 2px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:transparent;color:var(--ink3);font-size:13px;text-align:left;overflow-wrap:anywhere}
+.dossier-tab span{font-size:10.5px;color:var(--ink4);font-variant-numeric:tabular-nums}
+.dossier-tab:hover{color:var(--ink)}
+.dossier-tab.active{border-bottom-color:var(--accent);color:var(--ink);font-weight:600}
+.dossier-section{padding:20px 0;min-width:0;min-height:240px}
+.dossier-section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+.dossier-section-head h3{font-size:17px;font-weight:650;overflow-wrap:anywhere;min-width:0;margin:0}
+.dossier-editor{width:100%;min-height:320px;resize:vertical;font-size:13.5px;line-height:1.8;padding:12px 13px;background:var(--surface)}
+.dossier-legacy-notes{border-top:1px solid var(--line);padding-top:14px;margin-top:14px;color:var(--ink2);font-size:12.5px}
+.dossier-legacy-notes summary{cursor:pointer;color:var(--ink3);font-size:12px}
+.dossier-legacy-notes .document-body{padding-top:12px}
+.model-boundary{border-left:2px solid var(--accent);background:var(--accent-soft);padding:12px 14px;font-size:12px;line-height:1.7}
+#dossier-upload{width:100%;font-size:12px}
+#dossier-input{width:100%}
+@media(max-width:1000px){.dossier-project-head,.dossier-toolbar{flex-wrap:wrap}.dossier-toolbar>.row{justify-content:flex-start}.quick-settings{gap:10px 14px}}
+@media(max-width:767px){
+ .quick-form{grid-template-columns:minmax(0,1fr) auto}
+ .quick-form #quick-title{grid-column:1/-1}
+ .quick-form #quick-project{grid-column:1/-1;width:100%}
+ .quick-settings{gap:9px}
+ .quick-priority-caption{display:none}
+ .priority-chip{font-size:11.5px;padding:5px 8px}
+ .dossier-project-head h2{font-size:19px}
+ .dossier-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 10px}
+ .dossier-section-head h3{font-size:16px}
+ .dossier-editor{min-height:300px;font-size:13px}
+ .modal-inner .form-actions{flex-wrap:wrap}
+}

@@ -1,0 +1,56 @@
+# Local user data and developer scratch space
+data/
+/projects/
+.local/
+发布准备/个人迁移备份/
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+*.sqlite-*
+*.log
+.env
+.env.*
+!.env.example
+
+# Generated applications, runtimes and local historical archives
+build/
+dist/
+releases/
+archive/
+
+# Python / editor caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.vscode/
+.idea/
+
+# Local design drafts, publication preparation and private verification evidence
+产品设计/
+发布准备/
+docs/history/
+docs/验收/
+docs/项目整理清单-*.json
+docs/项目整理说明-*.md
+docs/版本管理与V2迭代规划-*.md
+docs/工作笔记-双平台封装评估与需求确认.md
+docs/V2.*-迭代交付说明-*.md
+docs/requirements/*-迭代需求-*.txt
+
+# Credentials and generated development artifacts
+*.pem
+*.key
+*.pfx
+*.p12
+node_modules/
+coverage/
+*.tmp
+*.zip
+*.exe
+*.dll
+*.nupkg
+*.hap

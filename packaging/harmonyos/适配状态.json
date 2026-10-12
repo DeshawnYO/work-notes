@@ -1,0 +1,9 @@
+{
+  "target_device": "HUAWEI MatePad Pro Max 悦享款 (GEM-W40)",
+  "os_from_user": "HarmonyOS 7.0.0.109 SP6",
+  "native_backend_ready": false,
+  "compiled": false,
+  "signed": false,
+  "device_tested": false,
+  "shared_frontend_staged": true
+}
