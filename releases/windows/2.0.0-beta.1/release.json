@@ -1,0 +1,33 @@
+{
+  "application": "工作笔记",
+  "version": "2.0.0-beta.1",
+  "release_kind": "historical-installer-archive",
+  "channel": "试用 / 历史安装包归档",
+  "platform": "Windows 10 1607+ / Windows 11 x64",
+  "package": "工作笔记-安装包-2.0.0-beta.1-Windows-x64.exe",
+  "size_bytes": 232934314,
+  "sha256": "d4494fee225e9e178b6eda2115e85c520e6b6b2db6490b3480a26c3d2187a717",
+  "revision": "20261011-v2-1",
+  "schema_version": 2,
+  "source_commit": null,
+  "source_commit_status": "历史构建早于 Git 初始化，无法确认精确源码提交",
+  "original_created_at": null,
+  "archived_on": "2026-10-12",
+  "tag": "installer-v2.0.0-beta.1",
+  "tag_scope": "安装包归档索引，标签不代表此旧安装包的原始源码",
+  "release_url": "https://github.com/DeshawnYO/work-notes/releases/tag/installer-v2.0.0-beta.1",
+  "download_url": "https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.0.0-beta.1/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0-%E5%AE%89%E8%A3%85%E5%8C%85-2.0.0-beta.1-Windows-x64.exe",
+  "application_code_signed": false,
+  "offline_webview_installer_bundled": true,
+  "manifest_audit": {
+    "files_match_original_staging": true,
+    "private_data_file_flags": 0
+  },
+  "acceptance": {
+    "new_install_tested_this_publication": false,
+    "upgrade_tested_this_publication": false,
+    "clean_pc_without_webview_tested": false,
+    "installer_extraction_tested": false
+  },
+  "license": "PolyForm Noncommercial 1.0.0; third-party components retain their original licenses"
+}

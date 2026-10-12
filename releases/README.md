@@ -1,0 +1,14 @@
+# 安装包与版本目录
+
+按产品版本管理 Windows 安装包、更新说明和校验值。最新保留版本为 **2.1.0**，目前均为试用版本。
+
+| 版本 | 说明 | Windows x64 安装包 |
+| --- | --- | --- |
+| [1.0.0](windows/1.0.0/) | 初始 Windows 桌面试用版本。建议优先选择最新的 2.1.0；本版本仅用于历史追溯。 | [下载](https://github.com/DeshawnYO/work-notes/releases/download/installer-v1.0.0/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0-%E5%AE%89%E8%A3%85%E5%8C%85-1.0.0-Windows-x64.exe) |
+| [2.0.0-beta.1](windows/2.0.0-beta.1/) | V2 首个试用包，增加随手记录、单层子事项、重大汇报与 Word 归档，数据结构版本为 2。 | [下载](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.0.0-beta.1/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0-%E5%AE%89%E8%A3%85%E5%8C%85-2.0.0-beta.1-Windows-x64.exe) |
+| [2.0.0-beta.2](windows/2.0.0-beta.2/) | V2 后续试用包，沿用 V2 功能，数据结构版本为 3。 | [下载](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.0.0-beta.2/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0-%E5%AE%89%E8%A3%85%E5%8C%85-2.0.0-beta.2-Windows-x64.exe) |
+| [2.1.0](windows/2.1.0/) | 最新保留的 Windows 试用包，采用编辑风界面，功能沿用 V2，数据结构版本为 3。 | [下载](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.1.0/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0-%E5%AE%89%E8%A3%85%E5%8C%85-2.1.0-Windows-x64.exe) |
+
+每个版本目录含 `README.md`、`release.json`、`SHA256.txt`、`LICENSE`、`NOTICE.md`。作者本地同目录另有 `.exe`；公开二进制附件放在各版本 GitHub Release，避免超过 GitHub 普通 Git 文件的 100 MiB 上限。
+
+安装包不可覆盖；修订安装包必须增加版本号。首次公开源码标签 `v2.1.0-source.1` 保持原有范围，历史安装包使用 `installer-v<版本>` 标签，其原始源码提交未知。发布与升级规则见 [发布管理](../docs/发布管理.md) 和 [版本规则](../VERSIONING.md)。仅允许非商业用途。

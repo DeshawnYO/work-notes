@@ -17,7 +17,19 @@ data/
 # Generated applications, runtimes and local historical archives
 build/
 dist/
-releases/
+# Version catalogs are tracked; installer binaries stay in GitHub Releases.
+/releases/*
+!/releases/README.md
+!/releases/windows/
+/releases/windows/*
+!/releases/windows/README.md
+!/releases/windows/*/
+/releases/windows/*/*
+!/releases/windows/*/README.md
+!/releases/windows/*/release.json
+!/releases/windows/*/SHA256.txt
+!/releases/windows/*/LICENSE
+!/releases/windows/*/NOTICE.md
 archive/
 
 # Python / editor caches
