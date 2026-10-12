@@ -4,10 +4,10 @@
 
 | 版本 | 说明 | Windows x64 安装包 |
 | --- | --- | --- |
-| [1.0.0](windows/1.0.0/) | 初始 Windows 桌面试用版本。建议优先选择最新的 2.1.0；本版本仅用于历史追溯。 | [下载](https://github.com/DeshawnYO/work-notes/releases/download/installer-v1.0.0/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0-%E5%AE%89%E8%A3%85%E5%8C%85-1.0.0-Windows-x64.exe) |
-| [2.0.0-beta.1](windows/2.0.0-beta.1/) | V2 首个试用包，增加随手记录、单层子事项、重大汇报与 Word 归档，数据结构版本为 2。 | [下载](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.0.0-beta.1/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0-%E5%AE%89%E8%A3%85%E5%8C%85-2.0.0-beta.1-Windows-x64.exe) |
-| [2.0.0-beta.2](windows/2.0.0-beta.2/) | V2 后续试用包，沿用 V2 功能，数据结构版本为 3。 | [下载](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.0.0-beta.2/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0-%E5%AE%89%E8%A3%85%E5%8C%85-2.0.0-beta.2-Windows-x64.exe) |
-| [2.1.0](windows/2.1.0/) | 最新保留的 Windows 试用包，采用编辑风界面，功能沿用 V2，数据结构版本为 3。 | [下载](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.1.0/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0-%E5%AE%89%E8%A3%85%E5%8C%85-2.1.0-Windows-x64.exe) |
+| [1.0.0](windows/1.0.0/) | 初始 Windows 桌面试用版本。建议优先选择最新的 2.1.0；本版本仅用于历史追溯。 | [下载](https://github.com/DeshawnYO/work-notes/releases/download/installer-v1.0.0/Work-Notes-1.0.0-Windows-x64.exe) |
+| [2.0.0-beta.1](windows/2.0.0-beta.1/) | V2 首个试用包，增加随手记录、单层子事项、重大汇报与 Word 归档，数据结构版本为 2。 | [下载](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.0.0-beta.1/Work-Notes-2.0.0-beta.1-Windows-x64.exe) |
+| [2.0.0-beta.2](windows/2.0.0-beta.2/) | V2 后续试用包，沿用 V2 功能，数据结构版本为 3。 | [下载](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.0.0-beta.2/Work-Notes-2.0.0-beta.2-Windows-x64.exe) |
+| [2.1.0](windows/2.1.0/) | 最新保留的 Windows 试用包，采用编辑风界面，功能沿用 V2，数据结构版本为 3。 | [下载](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.1.0/Work-Notes-2.1.0-Windows-x64.exe) |
 
 每个版本目录含 `README.md`、`release.json`、`SHA256.txt`、`LICENSE`、`NOTICE.md`。作者本地同目录另有 `.exe`；公开二进制附件放在各版本 GitHub Release，避免超过 GitHub 普通 Git 文件的 100 MiB 上限。
 

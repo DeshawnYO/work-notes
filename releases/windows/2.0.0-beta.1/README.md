@@ -2,11 +2,11 @@
 
 V2 首个试用包，增加随手记录、单层子事项、重大汇报与 Word 归档，数据结构版本为 2。
 
-- [下载安装包](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.0.0-beta.1/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0-%E5%AE%89%E8%A3%85%E5%8C%85-2.0.0-beta.1-Windows-x64.exe)（222.14 MiB）
+- [下载安装包](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.0.0-beta.1/Work-Notes-2.0.0-beta.1-Windows-x64.exe)（222.14 MiB）
 - [对应 GitHub Release](https://github.com/DeshawnYO/work-notes/releases/tag/installer-v2.0.0-beta.1)
 - [发布信息](release.json) · [SHA-256](SHA256.txt) · [非商业许可](LICENSE) · [版权与第三方许可](NOTICE.md)
 
-此目录用于管理已保留的历史安装包。Git 中保留说明和校验信息，安装包二进制存放在 GitHub Releases；作者本地同一目录保留原始 `.exe`。
+此目录用于管理已保留的历史安装包。Git 中保留说明和校验信息，安装包二进制存放在 GitHub Releases；作者本地同一目录保留原始 `.exe`（工作笔记-安装包-2.0.0-beta.1-Windows-x64.exe）；公开附件使用 ASCII 文件名 `Work-Notes-2.0.0-beta.1-Windows-x64.exe`，内容和校验值相同。SHA256.txt 按公开下载文件名记录。
 
 ## 使用与升级
 
@@ -15,7 +15,7 @@ V2 首个试用包，增加随手记录、单层子事项、重大汇报与 Word
 升级前同时备份数据库和外部项目文件，关闭旧程序后再安装。旧版本仅供追溯；不能直接用旧程序打开新数据并认为可以安全降级。
 
 ```powershell
-Get-FileHash -LiteralPath '.\工作笔记-安装包-2.0.0-beta.1-Windows-x64.exe' -Algorithm SHA256
+Get-FileHash -LiteralPath '.\Work-Notes-2.0.0-beta.1-Windows-x64.exe' -Algorithm SHA256
 ```
 
 应得到：`d4494fee225e9e178b6eda2115e85c520e6b6b2db6490b3480a26c3d2187a717`。

@@ -1,1 +1,1 @@
-d4494fee225e9e178b6eda2115e85c520e6b6b2db6490b3480a26c3d2187a717  工作笔记-安装包-2.0.0-beta.1-Windows-x64.exe
+d4494fee225e9e178b6eda2115e85c520e6b6b2db6490b3480a26c3d2187a717  Work-Notes-2.0.0-beta.1-Windows-x64.exe

@@ -2,11 +2,11 @@
 
 最新保留的 Windows 试用包，采用编辑风界面，功能沿用 V2，数据结构版本为 3。
 
-- [下载安装包](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.1.0/%E5%B7%A5%E4%BD%9C%E7%AC%94%E8%AE%B0-%E5%AE%89%E8%A3%85%E5%8C%85-2.1.0-Windows-x64.exe)（222.13 MiB）
+- [下载安装包](https://github.com/DeshawnYO/work-notes/releases/download/installer-v2.1.0/Work-Notes-2.1.0-Windows-x64.exe)（222.13 MiB）
 - [对应 GitHub Release](https://github.com/DeshawnYO/work-notes/releases/tag/installer-v2.1.0)
 - [发布信息](release.json) · [SHA-256](SHA256.txt) · [非商业许可](LICENSE) · [版权与第三方许可](NOTICE.md)
 
-此目录用于管理已保留的历史安装包。Git 中保留说明和校验信息，安装包二进制存放在 GitHub Releases；作者本地同一目录保留原始 `.exe`。
+此目录用于管理已保留的历史安装包。Git 中保留说明和校验信息，安装包二进制存放在 GitHub Releases；作者本地同一目录保留原始 `.exe`（工作笔记-安装包-2.1.0-Windows-x64.exe）；公开附件使用 ASCII 文件名 `Work-Notes-2.1.0-Windows-x64.exe`，内容和校验值相同。SHA256.txt 按公开下载文件名记录。
 
 ## 使用与升级
 
@@ -15,7 +15,7 @@
 升级前同时备份数据库和外部项目文件，关闭旧程序后再安装。旧版本仅供追溯；不能直接用旧程序打开新数据并认为可以安全降级。
 
 ```powershell
-Get-FileHash -LiteralPath '.\工作笔记-安装包-2.1.0-Windows-x64.exe' -Algorithm SHA256
+Get-FileHash -LiteralPath '.\Work-Notes-2.1.0-Windows-x64.exe' -Algorithm SHA256
 ```
 
 应得到：`c32c91686b5d899604c72556fc8c8f20d1481a7107b4fbaae186fb99a4d553e4`。
