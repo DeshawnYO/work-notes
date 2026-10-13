@@ -144,15 +144,11 @@ internal class NotebookForm:Form {
     WebView2 web=new WebView2();NotifyIcon tray;Process backend;string data,url,token;bool exiting=false;System.Windows.Forms.Timer qaTimer;
     RegisteredWaitHandle wakeWait;
     internal NotebookForm(string dataPath) {
-        data=dataPath;Text="工作笔记 V2";Icon=Program.AppIcon;Size=new Size(1420,950);MinimumSize=new Size(820,620);StartPosition=FormStartPosition.CenterScreen;
+        data=dataPath;Text="工作笔记 V2.2";Icon=Program.AppIcon;Size=new Size(1420,950);MinimumSize=new Size(820,620);StartPosition=FormStartPosition.CenterScreen;
         if(Program.Flag("qa")!=""){StartPosition=FormStartPosition.Manual;Location=new Point(-20000,-20000);}
         wakeWait=ThreadPool.RegisterWaitForSingleObject(Program.WakeSignal,(s,t)=>{Program.Trace("wake received");if(!IsDisposed&&IsHandleCreated)BeginInvoke((Action)ShowNotebook);},null,-1,false);
-        MenuStrip menu=new MenuStrip();var file=new ToolStripMenuItem("工作笔记");
-        file.DropDownItems.Add("打开数据文件夹",null,(s,e)=>Process.Start(new ProcessStartInfo(data){UseShellExecute=true}));
-        file.DropDownItems.Add("切换数据位置…",null,async(s,e)=>await SwitchData());
-        file.DropDownItems.Add(new ToolStripSeparator());file.DropDownItems.Add("退出工作笔记",null,async(s,e)=>await ExitNotebook());menu.Items.Add(file);MainMenuStrip=menu;
-        web.Dock=DockStyle.Fill;Controls.Add(web);Controls.Add(menu);
-        ContextMenuStrip trayMenu=new ContextMenuStrip();trayMenu.Items.Add("打开工作笔记",null,(s,e)=>ShowNotebook());trayMenu.Items.Add("退出工作笔记",null,async(s,e)=>await ExitNotebook());
+        web.Dock=DockStyle.Fill;Controls.Add(web);
+        ContextMenuStrip trayMenu=new ContextMenuStrip();trayMenu.Items.Add("打开工作笔记",null,(s,e)=>ShowNotebook());trayMenu.Items.Add("打开数据文件夹",null,(s,e)=>Process.Start(new ProcessStartInfo(data){UseShellExecute=true}));trayMenu.Items.Add("切换数据位置…",null,async(s,e)=>await SwitchData());trayMenu.Items.Add("退出工作笔记",null,async(s,e)=>await ExitNotebook());
         tray=new NotifyIcon{Icon=Icon,Text="工作笔记",ContextMenuStrip=trayMenu,Visible=Program.Flag("qa")==""};tray.DoubleClick+=(s,e)=>ShowNotebook();
         Shown+=async(s,e)=>{bool failed=false;try { await StartNotebook(); }catch(Exception ex){Directory.CreateDirectory(Program.ConfigRoot);File.AppendAllText(Path.Combine(Program.ConfigRoot,"startup-error.log"),ex+Environment.NewLine);if(Program.Flag("qa")=="")MessageBox.Show(this,ex.Message,"打开工作笔记失败",MessageBoxButtons.OK,MessageBoxIcon.Error);Environment.ExitCode=1;failed=true;}if(failed)await ExitNotebook(true);};
         FormClosing+=(s,e)=>{Program.Trace("closing reason="+e.CloseReason+" exiting="+exiting);if(!exiting&&e.CloseReason==CloseReason.UserClosing){e.Cancel=true;Hide();if(Program.Flag("qa")==""){tray.ShowBalloonTip(2200,"工作笔记在后台运行","双击托盘图标可重新打开，右键可完整退出。",ToolTipIcon.Info);}}};
@@ -182,20 +178,22 @@ internal class NotebookForm:Form {
             if(!e.IsSuccess)return;
             token=await web.ExecuteScriptAsync("document.querySelector('meta[name=workbench-token]').content");token=Program.Json.Deserialize<string>(token);
             if(Program.Flag("qa")=="")return;
-            bool majorQa=Program.Flag("qa-page")=="major";
-            string qaReadyScript=majorQa?"Boolean(document.querySelector('#major-main') && document.querySelector('#major-side'))":"Boolean(document.querySelector('.day-strip') && document.querySelector('.matrix-head h2')?.textContent==='今日事项')";
+            string qaPage=Program.Flag("qa-page");
+            bool majorQa=qaPage=="major";
+            string qaReadyScript=qaPage=="templates"?"Boolean(document.querySelector('#v22-template-body'))":qaPage=="projects"?"Boolean(document.querySelector('.project-detail'))":majorQa?"Boolean(document.querySelector('#major-main') && document.querySelector('#major-side'))":"Boolean(document.querySelector('.day-strip') && document.querySelector('.matrix-head h2')?.textContent==='今日事项')";
             for(int i=0;i<100;i++){if(await web.ExecuteScriptAsync(qaReadyScript)=="true")break;await Task.Delay(100);}
+            for(int i=0;i<30;i++){if(await web.ExecuteScriptAsync("document.getAnimations().some(a=>a.playState==='running')")=="false")break;await Task.Delay(100);}
             string proof=await web.ExecuteScriptAsync("JSON.stringify({title:document.title,page:state.page,version:state.data.product_version,days:document.querySelectorAll('.day-btn').length,datePicker:!!document.querySelector('#home-date'),heading:document.querySelector('.matrix-head h2')?.textContent,quadrants:document.querySelectorAll('.quadrant').length,data:state.data.tasks.length,majorEditors:document.querySelectorAll('.major-editors .rte-editor').length,records:document.querySelectorAll('.major-record').length,overflow:document.documentElement.scrollWidth>innerWidth})");
-            if(Program.Flag("qa-report")!="")File.WriteAllText(Program.Flag("qa-report"),Program.Json.Deserialize<string>(proof),Encoding.UTF8);
+            if(Program.Flag("qa-report")!=""){var qaEvidence=Program.Json.Deserialize<Dictionary<string,object>>(Program.Json.Deserialize<string>(proof));int menuCount=0;foreach(Control c in Controls)if(c is MenuStrip)menuCount++;qaEvidence["native_menu_count"]=menuCount;qaEvidence["native_title"]=Text;File.WriteAllText(Program.Flag("qa-report"),Program.Json.Serialize(qaEvidence),Encoding.UTF8);}
             if(Program.Flag("qa-screenshot")!="")using(var stream=File.Create(Program.Flag("qa-screenshot")))await web.CoreWebView2.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png,stream);
             if(Program.Flag("qa-download")!=""){web.CoreWebView2.DownloadStarting+=(ds,de)=>{de.DownloadOperation.StateChanged+=(os,oe)=>{if(de.DownloadOperation.State==CoreWebView2DownloadState.Completed)File.WriteAllText(Program.Flag("qa-download"),de.ResultFilePath,Encoding.UTF8);};};await web.ExecuteScriptAsync("(()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['# 离线导出验收'],{type:'text/markdown'}));a.download='离线验收.md';a.click()})()");}
             qaTimer=new System.Windows.Forms.Timer{Interval=20000};qaTimer.Tick+=async(ts,te)=>{qaTimer.Stop();await ExitNotebook(true);};qaTimer.Start();
         };
-        web.CoreWebView2.Navigate(url+(Program.Flag("qa-page")=="major"?"/?page=major":"/"));
+        web.CoreWebView2.Navigate(url+(Program.Flag("qa-page")=="templates"?"/?page=settings&tab=templates":Program.Flag("qa-page")=="projects"?"/?page=projects":Program.Flag("qa-page")=="major"?"/?page=major":"/"));
     }
     async Task<bool> CanExit() {
         if(web.CoreWebView2==null)return true;
-        string dirty=await web.ExecuteScriptAsync("Boolean(state.quickDraft||state.homeLogDraft||state.scratchDraft||typeof M!=='undefined'&&(M.dirty||M.wordBusy||M.aiBusy)||state.reportDraft!==null&&state.reportEditing||typeof dossierDirty==='function'&&dossierDirty()||document.querySelector('.daily-task-edit')||document.querySelector('#modal[open]'))");
+        string dirty=await web.ExecuteScriptAsync("Boolean(state.quickDraft||state.homeLogDraft||state.scratchDraft||typeof M!=='undefined'&&(M.dirty||M.wordBusy||M.aiBusy)||state.reportDraft!==null&&state.reportEditing||typeof dossierDirty==='function'&&dossierDirty()||typeof V22!=='undefined'&&(v22TemplateDirty()||V22.reportBusy)||document.querySelector('.daily-task-edit')||document.querySelector('#modal[open]'))");
         if(dirty=="true"&&MessageBox.Show(this,"有尚未保存的输入。请先保存，或选择继续退出并放弃这些输入。","工作笔记",MessageBoxButtons.OKCancel,MessageBoxIcon.Information)!=DialogResult.OK)return false;
         try{if(Convert.ToBoolean(Get("/api/desktop/busy")["busy"])){MessageBox.Show(this,"项目资料正在处理，请等待完成后再退出或切换数据。","工作笔记");return false;}}catch(WebException){if(backend!=null&&!backend.HasExited){MessageBox.Show(this,"本地服务暂时无法响应，请稍后再退出。","工作笔记");return false;}}
         return true;

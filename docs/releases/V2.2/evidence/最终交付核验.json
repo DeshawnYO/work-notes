@@ -1,0 +1,28 @@
+{
+  "version": "2.2.0-beta.2",
+  "delivery_date": "2026-10-13",
+  "installer_size_bytes": 234424496,
+  "installer_sha256": "1518cc7a69027cb6cf028c7be4b9b956299069abe1a5d1a6a0c853ca81a1c2ca",
+  "release_metadata_matches": true,
+  "source_manifest_hashes_verified": 24,
+  "source_manifest_classification": "compared to current Git baseline",
+  "original_requirements_copy_exact": true,
+  "delivery_document_local_links_checked": 14,
+  "missing_links": [],
+  "viewport_1280_final_review": {
+    "review_date": "2026-10-13",
+    "settings_projects_reports_overflow": false,
+    "monthly_generation_initial_dates": [
+      "",
+      ""
+    ],
+    "software_icon_loaded": true,
+    "local_save_marker_present": false,
+    "browser_errors": 0
+  },
+  "installed_or_daily_app_replaced": false,
+  "real_ai_called": false,
+  "remote_published": false,
+  "temporary_model_scripts_removed": true,
+  "test_services_stopped": true
+}

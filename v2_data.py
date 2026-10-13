@@ -6,6 +6,7 @@ def migrate(con, stamp):
     con.execute('CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL)')
     if con.execute('SELECT 1 FROM schema_migrations WHERE version=2').fetchone():
         migrate_personal_paths(con,stamp)
+        migrate_v22(con,stamp)
         return
     # SQLite DDL participates in this transaction. Failed upgrades leave no marker.
     con.execute('SAVEPOINT migration_v2')
@@ -45,6 +46,7 @@ def migrate(con, stamp):
         con.execute('RELEASE migration_v2')
         raise
     migrate_personal_paths(con,stamp)
+    migrate_v22(con,stamp)
 
 
 def migrate_personal_paths(con,stamp):
@@ -57,3 +59,16 @@ def migrate_personal_paths(con,stamp):
         con.execute('RELEASE migration_v3')
     except Exception:
         con.execute('ROLLBACK TO migration_v3'); con.execute('RELEASE migration_v3'); raise
+
+
+def migrate_v22(con, stamp):
+    if con.execute('SELECT 1 FROM schema_migrations WHERE version=4').fetchone(): return
+    con.execute('SAVEPOINT migration_v22')
+    try:
+        con.execute('''CREATE TABLE IF NOT EXISTS report_inputs(
+            report_id TEXT PRIMARY KEY,metadata TEXT NOT NULL,sources TEXT NOT NULL,
+            FOREIGN KEY(report_id) REFERENCES reports(id) ON DELETE CASCADE)''')
+        con.execute('INSERT INTO schema_migrations VALUES(4,?)',(stamp,))
+        con.execute('RELEASE migration_v22')
+    except Exception:
+        con.execute('ROLLBACK TO migration_v22');con.execute('RELEASE migration_v22');raise

@@ -66,3 +66,6 @@ coverage/
 *.dll
 *.nupkg
 *.hap
+
+# Private V2.2 original request
+docs/requirements/V2.2/用户原始需求-*.txt

@@ -1,0 +1,122 @@
+[
+  {
+    "file": "app_version.py",
+    "change": "修改",
+    "sha256": "c404ff162d915357bf6380ff796a4168874884b283cf92b258513af707aa9018"
+  },
+  {
+    "file": "build_portable.py",
+    "change": "修改",
+    "sha256": "2fd3d8b80fbe598883f071629a79cdc21aa7e11161d2135c5660139e0b6e2fe9"
+  },
+  {
+    "file": "core.py",
+    "change": "修改",
+    "sha256": "205c4bd6c1e767b72163bb90d383548eb702f491cee09ec82186a6d793bf939d"
+  },
+  {
+    "file": "data_storage.py",
+    "change": "未修改（构建一致性核验）",
+    "sha256": "b02b460a64709a0889d2658c3255c9609f5f6a860e57354af19d80a2a2f1f15a"
+  },
+  {
+    "file": "default_templates.py",
+    "change": "新增",
+    "sha256": "dc15afff13d14b641443f0217dcbb9c99ffcdda087c0a2a4b8875dd6f6c528fe"
+  },
+  {
+    "file": "desktop_backend.py",
+    "change": "未修改（构建一致性核验）",
+    "sha256": "5891a1b674188d20eefb2de1628f7b3ebf3284d074cd01f53cda3a158c5ada5e"
+  },
+  {
+    "file": "launcher.py",
+    "change": "未修改（构建一致性核验）",
+    "sha256": "2460880c053a2a6cac01ccd3917fb0c5ab886fc6d99ae71d8491f60b5e64cbcf"
+  },
+  {
+    "file": "major_records.py",
+    "change": "未修改（构建一致性核验）",
+    "sha256": "1bba3b5f433c1950cb0d6ac6b1211f3522b7c407cfd18fd211fc08a569a7ded3"
+  },
+  {
+    "file": "prepare_move.py",
+    "change": "未修改（构建一致性核验）",
+    "sha256": "3d8a8de1aac2ffe3943b7caeb57feda1a2fe4473f2339b75c8eb9bd29b0ec4d4"
+  },
+  {
+    "file": "project_dossier.py",
+    "change": "修改",
+    "sha256": "c0d267002ede53d32e373b6460cfa7cc9f4c75687b81e64bc419b3c088e5b37d"
+  },
+  {
+    "file": "richtext.py",
+    "change": "未修改（构建一致性核验）",
+    "sha256": "86be4ed367e85b9154739812d754fabe541d5d3e1bdfd8630a1cdfaffc26fd90"
+  },
+  {
+    "file": "server.py",
+    "change": "修改",
+    "sha256": "ba9ba5aaef327a08fbd7573f8ee23517b578675e9757459c48522daefffb8d30"
+  },
+  {
+    "file": "v22_services.py",
+    "change": "新增",
+    "sha256": "12dd5c1407df401c0956e193ed12b6f6f14b21cce6c3e46dc9b326b65b8f8407"
+  },
+  {
+    "file": "v2_data.py",
+    "change": "修改",
+    "sha256": "7884e76e79d2aa00eb407b878adae0d4131b8d48d597008cdfe0b1571ec49d7c"
+  },
+  {
+    "file": "workbench_v2.py",
+    "change": "未修改（构建一致性核验）",
+    "sha256": "4e06ee28b3043d5a54403ce063312a687b154fb97d0d04bdacbefa7c21a35324"
+  },
+  {
+    "file": "static/app-icon.png",
+    "change": "新增",
+    "sha256": "312f29604eb17d67acf2798cbed6e319536daa23094898513142637da548ebe2"
+  },
+  {
+    "file": "static/app.js",
+    "change": "修改",
+    "sha256": "79d7850e3bce0a0cc454dfd8c1edbc8b11f7b8e14bb5dc2acf856f10c3d6866f"
+  },
+  {
+    "file": "static/index.html",
+    "change": "修改",
+    "sha256": "1661b8dc93b128b23393ab8fa98a3476d63d7f953a9a448b1ad98a7dc943ae2f"
+  },
+  {
+    "file": "static/modern.css",
+    "change": "修改",
+    "sha256": "985858f8d98ba65f521e5662af3f45180633109f52e40fad5f7f9061bf9c29a5"
+  },
+  {
+    "file": "static/style.css",
+    "change": "修改",
+    "sha256": "6dec38bdc19fbc314f88d5d851bd930ded67676d6e2ede71215fd8f1614ad8f6"
+  },
+  {
+    "file": "static/v22.js",
+    "change": "新增",
+    "sha256": "4dad70ea8991ee930629e895adb834cb24b7e9e84faffa18f8bc2c581a31da72"
+  },
+  {
+    "file": "packaging/windows/WorkNotes.cs",
+    "change": "修改",
+    "sha256": "be191475d32b53e504d9487643de27abd190eb11156d5be7cd74e8ebebeb3d5c"
+  },
+  {
+    "file": "packaging/windows/build_installer.py",
+    "change": "修改",
+    "sha256": "b250c6255b9cf7dd771641a2af7ef3a0150e3bf5de1feae78fc90fbb891a795e"
+  },
+  {
+    "file": "packaging/windows/release_metadata.py",
+    "change": "修改",
+    "sha256": "5ce3bb70e723fdde8b279c3f923925e83ffeed1c948c400816fe580d39fae242"
+  }
+]

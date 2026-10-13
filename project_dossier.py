@@ -54,11 +54,10 @@ def save(pid,body,expected_digest,template=None,expected_template=None,from_job=
         current=read(pid)
         if not body.strip():raise ValueError('档案不能保存为空')
         if current['digest']!=expected_digest:raise ValueError('档案已被其他操作修改，请重新读取后再保存；你的编辑内容仍保留')
-        if expected_template is not None and current['template_digest']!=expected_template:raise ValueError('模板已改变，请按最新模板重新整理')
+        if from_job and expected_template is not None and current['template_digest']!=expected_template:raise ValueError('模板已改变，请按最新模板重新整理')
         if not from_job and core.one("SELECT id FROM dossier_jobs WHERE project_id=? AND status='整理中'",(pid,)):raise ValueError('AI正在整理，请等整理结束后再编辑')
         if core.one("SELECT id FROM ai_archive_jobs WHERE project_id=? AND status IN ('排队中','运行中','取消中')",(pid,)):raise ValueError('项目正在加载，请等加载结束后再编辑')
         chosen=current['template'] if template is None else template
-        if chosen and headings(body)!=validate_template(chosen):raise ValueError('档案一级标题必须与模板名称、顺序一致')
         folder=Path(project(pid)['root'])/core.ARCHIVE_DIR
         history=folder/'历史版本'/f'手动档案-{uuid.uuid4().hex}.md'
         core.atomic_write(history,current['body'].encode('utf-8'))
@@ -66,6 +65,7 @@ def save(pid,body,expected_digest,template=None,expected_template=None,from_job=
         with core.db() as con:
             con.execute('INSERT INTO project_dossiers VALUES(?,?,?) ON CONFLICT(project_id) DO UPDATE SET template=excluded.template,updated_at=excluded.updated_at',(pid,chosen,core.now()))
             con.execute('UPDATE projects SET archive_status=?,last_archive_at=?,last_archive_digest=? WHERE id=?',('已保存',core.now(),core.digest_text(body),pid))
+        core.put_setting('dossier_deleted_'+pid,'')
         return read(pid)
 
 def save_section(pid,index,text,expected_digest):

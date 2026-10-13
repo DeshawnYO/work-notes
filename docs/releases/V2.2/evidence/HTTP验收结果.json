@@ -1,0 +1,101 @@
+{
+  "passed": 21,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Final V2.2 health and isolated data",
+      "result": "PASS"
+    },
+    {
+      "name": "V2.2 JS is actually loaded",
+      "result": "PASS"
+    },
+    {
+      "name": "Removed sidebar collapse and local-save markers",
+      "result": "PASS"
+    },
+    {
+      "name": "Brand PNG is true software icon",
+      "result": "PASS"
+    },
+    {
+      "name": "Token protection preserved",
+      "result": "PASS"
+    },
+    {
+      "name": "Origin protection preserved",
+      "result": "PASS"
+    },
+    {
+      "name": "Host protection preserved",
+      "result": "PASS"
+    },
+    {
+      "name": "Report generation without chosen dates refused",
+      "result": "PASS"
+    },
+    {
+      "name": "Real source preview counts work items",
+      "result": "PASS"
+    },
+    {
+      "name": "Monthly report actual API persists four sections",
+      "result": "PASS"
+    },
+    {
+      "name": "Source snapshot and actual model method queryable",
+      "result": "PASS"
+    },
+    {
+      "name": "Generated report downloads valid Word",
+      "result": "PASS"
+    },
+    {
+      "name": "Template actual save and query",
+      "result": "PASS"
+    },
+    {
+      "name": "Stale template save rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "Manual dossier save writes real MD",
+      "result": "PASS"
+    },
+    {
+      "name": "Stale dossier save rejected",
+      "result": "PASS"
+    },
+    {
+      "name": "Delete actual dossier leaves project source files",
+      "result": "PASS"
+    },
+    {
+      "name": "Restore actual dossier preserves body",
+      "result": "PASS"
+    },
+    {
+      "name": "Dossier preview existing mode reads recentweek",
+      "result": "PASS"
+    },
+    {
+      "name": "Upload parser actual HTTP works",
+      "result": "PASS"
+    },
+    {
+      "name": "Unconfigured AI generation explicit error",
+      "result": "PASS"
+    }
+  ],
+  "health": {
+    "app": "personal-workbench",
+    "version": 2,
+    "product_version": "2.2.0-beta.2",
+    "schema_version": 4,
+    "revision": "20261012-v2.2-2",
+    "installation": "$SOURCE_ROOT",
+    "data_dir": "$SOURCE_ROOT\\.local\\v22-preview\\data"
+  },
+  "real_model_called": false,
+  "production_data_changed": false
+}

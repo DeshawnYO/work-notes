@@ -19,6 +19,7 @@ import project_dossier
 import app_version
 import major_records
 import workbench_v2
+import v22_services
 
 HOST = "127.0.0.1"
 PORT = int(os.environ.get("PERSONAL_WORKBENCH_PORT", "18763"))
@@ -33,12 +34,10 @@ def run_scheduled():
             hour = int(core.setting("archive_hour", "21"))
             stamp = core.today()
             for project in core.rows("SELECT * FROM projects WHERE deleted_at IS NULL"):
-                # Keep the file index fresh even when the nightly dossier is not due.
-                if not core.one("SELECT id FROM ai_archive_jobs WHERE project_id=? AND status='成功' AND mode='full' LIMIT 1", (project["id"],)):
-                    try:
-                        core.scan_project(project["id"])
-                    except (OSError, ValueError, FileNotFoundError):
-                        pass
+                # Only maintain daily notes for a dossier already saved explicitly.
+                # Empty/deleted dossiers must stay empty until the user saves or generates.
+                if not core.one("SELECT project_id FROM project_dossiers WHERE project_id=?", (project["id"],)) or core.setting("dossier_deleted_"+project["id"]):
+                    continue
                 last = (project["last_archive_at"] or "")[:10]
                 attempted = core.setting("archive_attempt_" + project["id"])
                 due = (datetime.now().hour >= hour) or (last and last < stamp)
@@ -49,26 +48,6 @@ def run_scheduled():
                     except Exception as exc:
                         with core.db() as con:
                             con.execute("UPDATE projects SET archive_status=? WHERE id=?", (f"失败：{type(exc).__name__}", project["id"]))
-            now_day = date.today()
-            previous_week = now_day - timedelta(days=7)
-            if core.setting("weekly_catchup") != core.week_start(now_day):
-                try:
-                    core.generate_report("周报", previous_week.isoformat(), automatic=True)
-                    core.put_setting("weekly_catchup", core.week_start(now_day))
-                except Exception:
-                    pass
-            previous_month = now_day.replace(day=1) - timedelta(days=1)
-            if core.setting("monthly_catchup") != now_day.strftime("%Y-%m"):
-                try:
-                    core.generate_report("月报", previous_month.isoformat(), automatic=True)
-                    core.put_setting("monthly_catchup", now_day.strftime("%Y-%m"))
-                except Exception:
-                    pass
-            if datetime.now().hour >= hour:
-                if now_day.weekday() == 6:
-                    core.generate_report("周报", now_day.isoformat(), automatic=True)
-                if (now_day + timedelta(days=1)).month != now_day.month:
-                    core.generate_report("月报", now_day.isoformat(), automatic=True)
         except Exception:
             pass
         time.sleep(60)
@@ -149,7 +128,9 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/":
                 page = (STATIC / "index.html").read_text(encoding="utf-8").replace("__SESSION_TOKEN__", TOKEN)
                 return self.send_data(page, content_type="text/html; charset=utf-8")
-            if path in ("/app.js", "/v2.js", "/style.css"):
+            if path == '/app-icon.png':
+                return self.send_data((STATIC/'app-icon.png').read_bytes(),content_type='image/png')
+            if path in ("/app.js", "/v2.js", "/v22.js", "/style.css"):
                 mime = "text/javascript; charset=utf-8" if path.endswith(".js") else "text/css; charset=utf-8"
                 return self.send_data((STATIC / path[1:]).read_bytes(), content_type=mime)
             if path == "/api/health":
@@ -188,6 +169,14 @@ class Handler(BaseHTTPRequestHandler):
                 loc=major_records.location(query.get('id',''))
                 return self.send_data(Path(loc['full_path']).read_bytes(),content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document',
                     extra={'Content-Disposition':"attachment; filename*=UTF-8''"+urllib.parse.quote(loc['file_name'])})
+            if path == '/api/templates':
+                return self.send_data(v22_services.templates(query.get('project_id') or None))
+            if path == '/api/reports/preview':
+                return self.send_data(v22_services.report_preview(query.get('kind'),query.get('start'),query.get('end')))
+            if path == '/api/reports/sources':
+                return self.send_data(v22_services.report_sources(query.get('id','')))
+            if path == '/api/dossier/generate-preview':
+                return self.send_data(v22_services.dossier_preview(query.get('project_id','')))
             if path == '/api/dossier':
                 return self.send_data(project_dossier.read(query.get('project_id','')))
             if path == '/api/dossier/job':
@@ -324,6 +313,16 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send_data(workbench_v2.delete_model(path.rsplit('/',1)[-1]))
             if path.startswith('/api/projects/') and self.command=='DELETE':
                 return self.send_data(core.delete_project(path.rsplit('/',1)[-1]))
+            if path == '/api/templates':
+                return self.send_data(v22_services.save_template(data))
+            if path == '/api/dossier/save':
+                return self.send_data(project_dossier.save(data['project_id'],data['body'],data['expected_digest']))
+            if path == '/api/dossier/delete':
+                return self.send_data(v22_services.delete_dossier(data['project_id'],data['expected_digest']))
+            if path == '/api/dossier/restore':
+                return self.send_data(v22_services.restore_dossier(data['project_id'],data['expected_digest']))
+            if path == '/api/dossier/generate':
+                return self.send_data(v22_services.start_dossier(data['project_id'],data['expected_digest']))
             if path == '/api/dossier/section':
                 return self.send_data(project_dossier.save_section(data['project_id'],data['index'],data['body'],data['expected_digest']))
             if path == '/api/dossier/start':
@@ -380,7 +379,7 @@ class Handler(BaseHTTPRequestHandler):
                 core.atomic_write(target, str(data.get("body") or "").encode("utf-8"))
                 return self.send_data({"saved": True})
             if path == "/api/reports":
-                return self.send_data(core.generate_report(data["kind"], data.get("anchor")))
+                return self.send_data(core.generate_report(data["kind"], period_start=data.get("start"), period_end=data.get("end"), use_ai=data.get("use_ai", True)))
             if path.startswith("/api/reports/") and self.command == "PATCH":
                 rid = path.rsplit("/", 1)[1]
                 with core.db() as con:

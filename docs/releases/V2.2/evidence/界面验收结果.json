@@ -1,0 +1,41 @@
+{
+  "version": "2.2.0-beta.2",
+  "production_data_changed": false,
+  "real_model_called": false,
+  "checks": [
+    "移除收起导航与本机保存标识，实际软件图标加载",
+    "设置模型/模板/数据分页面",
+    "自定义模板保存与未保存导航保护",
+    "生成弹窗日期为空、用户手动填写、来源预览与确认",
+    "事实底稿生成实际报告",
+    "上传TXT档案、人工保存任意格式、删除确认与恢复",
+    "模拟AI应用自定义模板生成报告",
+    "模拟AI档案近7天生成、实际写入MD并成功反馈",
+    "空档案模拟AI全量生成确认与完成",
+    "手机390六页面无横向溢出",
+    "320项目/报告/设置及模板页无横向溢出",
+    "1440完整模板页和项目档案渲染",
+    "模拟AI服务与源码服务最终页面错误日志为空"
+  ],
+  "viewports": [
+    "1440x900",
+    "1280x720",
+    "390x844",
+    "320x600"
+  ],
+  "mobile_390_all_pages_overflow": false,
+  "mobile_320_changed_pages_overflow": false,
+  "browser_errors": 0,
+  "ai_test_mode": "独立副本与替换模型响应的临时服务，不联系模型或云端",
+  "final_1280_review": {
+    "review_date": "2026-10-13",
+    "settings_projects_reports_overflow": false,
+    "monthly_generation_initial_dates": [
+      "",
+      ""
+    ],
+    "software_icon_loaded": true,
+    "local_save_marker_present": false,
+    "browser_errors": 0
+  }
+}

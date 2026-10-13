@@ -1,0 +1,21 @@
+{
+  "application": "工作笔记",
+  "version": "2.2.0-beta.2",
+  "revision": "20261012-v2.2-2",
+  "schema_version": 4,
+  "source_commit": null,
+  "source_base_commit": "3c94a4a978314935861a4da253e02a29dadf9efe",
+  "source_working_tree_changes": true,
+  "published_remote": false,
+  "channel": "V2.2 本地试用",
+  "created_at": "2026-10-12T22:56:46",
+  "package": "工作笔记-安装包-2.2.0-beta.2-Windows-x64.exe",
+  "size_bytes": 234424496,
+  "sha256": "1518cc7a69027cb6cf028c7be4b9b956299069abe1a5d1a6a0c853ca81a1c2ca",
+  "platform": "Windows 10 1607+ / Windows 11 x64",
+  "private_data_included": false,
+  "application_code_signed": false,
+  "offline_webview_installer_bundled": true,
+  "clean_pc_without_webview_tested": false,
+  "harmonyos_installer_ready": false
+}
