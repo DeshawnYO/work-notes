@@ -6,8 +6,8 @@
   "source_commit": null,
   "source_base_commit": "3c94a4a978314935861a4da253e02a29dadf9efe",
   "source_working_tree_changes": true,
-  "published_remote": false,
-  "channel": "V2.2 本地试用",
+  "published_remote": true,
+  "channel": "试用 / 预发布",
   "created_at": "2026-10-12T22:56:46",
   "package": "工作笔记-安装包-2.2.0-beta.2-Windows-x64.exe",
   "size_bytes": 234424496,
@@ -17,5 +17,24 @@
   "application_code_signed": false,
   "offline_webview_installer_bundled": true,
   "clean_pc_without_webview_tested": false,
-  "harmonyos_installer_ready": false
+  "harmonyos_installer_ready": false,
+  "release_kind": "delivered-installer-with-retrospective-source-snapshot",
+  "source_snapshot_commit": "ea5333064ae9d6ec7ce289ed42606a69eb24513d",
+  "source_commit_status": "原包在提交前构建；source_snapshot_commit 为事后按文本LF规范化及二进制摘要核验的源码快照，不是编译时提交",
+  "publication_date": "2026-10-13",
+  "tag": "v2.2.0-beta.2",
+  "asset_name": "Work-Notes-2.2.0-beta.2-Windows-x64.exe",
+  "release_url": "https://github.com/DeshawnYO/work-notes/releases/tag/v2.2.0-beta.2",
+  "download_url": "https://github.com/DeshawnYO/work-notes/releases/download/v2.2.0-beta.2/Work-Notes-2.2.0-beta.2-Windows-x64.exe",
+  "acceptance": {
+    "backend_passed": 51,
+    "http_passed": 21,
+    "real_model_tested": false,
+    "actual_install_tested": false,
+    "upgrade_tested": false,
+    "tray_tested": false,
+    "uninstall_tested": false,
+    "clean_pc_without_webview_tested": false
+  },
+  "license": "PolyForm Noncommercial 1.0.0; third-party components retain their original licenses"
 }

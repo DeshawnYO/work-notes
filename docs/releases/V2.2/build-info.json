@@ -13,5 +13,7 @@
     "XlsxWriter": "3.2.9",
     "packaging": "26.0",
     "typing_extensions": "4.15.0"
-  }
+  },
+  "source_snapshot_commit": "ea5333064ae9d6ec7ce289ed42606a69eb24513d",
+  "source_commit_status": "Retrospective LF-normalized source match, not compile-time commit"
 }
