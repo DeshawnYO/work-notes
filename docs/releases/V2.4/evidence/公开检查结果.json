@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-14",
+  "python_syntax_files": 23,
+  "javascript_syntax_files": 5,
+  "stylesheet_current": true,
+  "publication_files_scanned": 19,
+  "credential_findings": [],
+  "broken_local_links": [],
+  "installer_bytes": 234449501,
+  "installer_sha256": "bd6adec4ceb875b5d9a5c03a376e36b2e35671229179ed69364a2733338b9c8c",
+  "scope": "source and public release material only; no private database/config loaded"
+}

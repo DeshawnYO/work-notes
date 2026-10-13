@@ -14,7 +14,7 @@ def main():
     stage=ROOT/('build/windows-app-'+app_version.VERSION+'-'+datetime.now().strftime('%Y%m%d-%H%M%S'))
     stage.mkdir(parents=True,exist_ok=False)
     backend=stage/'backend';backend.mkdir(exist_ok=True)
-    for name in ('core.py','server.py','ai_archive.py','project_dossier.py','desktop_backend.py','data_storage.py','app_version.py','v2_data.py','richtext.py','major_records.py','workbench_v2.py','v22_services.py','default_templates.py'):
+    for name in ('core.py','server.py','ai_archive.py','project_dossier.py','desktop_backend.py','data_storage.py','app_version.py','v2_data.py','richtext.py','major_records.py','workbench_v2.py','v22_services.py','default_templates.py','project_requirements.py','report_generation.py'):
         shutil.copy2(ROOT/name,backend/name)
     for name in ('static','vendor'):
         shutil.copytree(ROOT/name,backend/name,dirs_exist_ok=True,ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
@@ -43,7 +43,7 @@ def main():
         str(generated)],check=True)
     generated.unlink()
     (stage/'工作笔记.exe.config').write_text('''<?xml version="1.0" encoding="utf-8"?><configuration><startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.6.2"/></startup></configuration>''',encoding='utf-8')
-    notice=f'''工作笔记 {app_version.VERSION}\n\n适用 Windows 10（1607及以上）/11 64位。\n本版本为全新界面：纸白底色、细分割线、陶土色点缀的编辑风设计，功能与 V2 一致。\n含重大汇报、图片与表格编辑、单 Word 归档、常驻随手记录和子事项。\n安装包包含 Python 和离线 WebView2 运行环境，基础功能无需联网。\n首次启动需选择程序目录之外的数据存储文件夹。可创建新数据、打开已有数据或迁移旧版 data 文件夹。\n升级前请备份数据库和项目文件。V2 草稿与子事项不能在 V1 中编辑，回退前另行保留 V2 新数据。\n正式 Word 保存在项目目录；自动草稿和嵌入图片保存在数据库，数据库备份不含项目 Word。\n升级和卸载程序不会删除数据目录。关闭窗口后驻留系统托盘，右键可完整退出。\n联网模型由使用者配置 API Key。本地模型需另行安装 Ollama 及模型。\n本安装包不含制作者的个人记录、项目材料或密钥。\n真实模型质量与新电脑安装需使用者验收。\n'''
+    notice=f'''工作笔记 {app_version.VERSION}\n\n适用 Windows 10（1607及以上）/11 64位。\n报告先总结工作事项，不预加载完整档案；有歧义时仅查询相关片段。后台生成显示状态，可继续使用其他功能，支持取消及失败重试。\n新增每项目按月独立需求管理：首行新增、完整需求描述、类型/状态/优先级下拉修改、系统与板块历史值选择、上月未完成需求递延、Excel预览导入导出。\n“一句话需求”携带明确JSON字段规范与示例，兼容常见模型返回，补齐可选字段后自动入表；保留原句及待确认建议，遵守项目仅本地处理限制。\n保留项目档案、工作记录、工作报告、重大汇报 Word 归档和个人待办。团队共享不在本版范围。\n安装包包含 Python 和离线 WebView2 运行环境，基础功能无需联网。\n首次启动需选择程序目录之外的数据存储文件夹。可创建新数据、打开已有数据或迁移旧版 data 文件夹。\n升级前同时备份数据库和项目文件。数据结构迁移7新增后台报告任务表，保留旧报告及来源。迁移6增加月度、系统/板块及提出时间，按创建月份保存旧需求并映射枚举，原字段与历史保留；旧版不能按新字段继续维护。回退前另行保存新需求和升级前备份。\n正式 Word 保存在项目目录；数据库备份不含项目 Word 与档案。\n升级和卸载程序不会删除数据目录。关闭窗口后驻留系统托盘，右键可完整退出。\n联网模型由使用者配置 API Key。本地模型需另行安装 Ollama 及模型。\n本安装包不含制作者的个人记录、项目材料或密钥。\n源码和独立数据流程已验证；实际安装升级、真实模型效果与新电脑离线运行未验收。\n'''
     (stage/'安装说明.txt').write_text(notice,encoding='utf-8-sig')
     for notice_name in ('LICENSE','NOTICE.md'):
         shutil.copy2(ROOT/notice_name,stage/notice_name)

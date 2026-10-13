@@ -3,14 +3,13 @@ html,body{height:100%;min-height:0;overflow:hidden}
 body{--nav-height:calc(66px + env(safe-area-inset-bottom));--motion-fast:140ms;--motion-page:200ms;--motion-ease:cubic-bezier(.2,.75,.25,1)}
 .app-shell>.sidebar{height:100%;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin}
 .workspace{display:flex;flex-direction:column;height:100%}
-.workspace>#app-main{height:100%;min-height:0;flex:1;width:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:26px 40px 10px;overflow:hidden;min-width:0}
+.workspace>#app-main{height:100%;min-height:0;flex:1;width:100%;display:grid;grid-template-rows:auto minmax(0,1fr);padding:26px 40px 10px;overflow:hidden;min-width:0}
 #app-main>.page-head{min-width:0;position:relative;z-index:1}
 .page-scroll{min-width:0;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-gutter:stable;padding:16px 10px 20px 0;margin-right:-10px;scrollbar-width:thin;scrollbar-color:var(--line-dark) transparent;outline-offset:-3px!important}
 .page-scroll::-webkit-scrollbar{width:7px}
 .page-scroll::-webkit-scrollbar-thumb{background:var(--line-dark);border-radius:6px}
 .page-scroll::-webkit-scrollbar-track{background:transparent}
 .page-scroll:focus:not(:focus-visible){outline:0}
-#app-main>.notebook-footer{min-height:28px;position:relative;z-index:1}
 /* 统一线形图标 */
 .ui-icon{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round;display:inline-block;flex:none;vertical-align:-3px;pointer-events:none}
 button.with-icon{display:inline-flex;align-items:center;justify-content:center;gap:6px}
@@ -62,7 +61,6 @@ button.is-busy>.ui-icon{display:none}
  .page-head p{font-size:11px;max-width:100%}
  #app-main>.page-head{padding-bottom:12px}
  .page-scroll{padding:13px 0 15px;margin:0}
- #app-main>.notebook-footer{min-height:26px}
  .home-main>*+*{margin-top:16px}
  .goals-panel{grid-template-columns:1fr;gap:16px}
  .goals-column+.goals-column{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:14px}

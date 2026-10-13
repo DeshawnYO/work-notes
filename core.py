@@ -13,6 +13,7 @@ import sqlite3
 import sys
 import tempfile
 import threading
+import time
 import urllib.error
 import urllib.request
 import uuid
@@ -1309,7 +1310,23 @@ def create_profile(data: dict):
     return model_public(one("SELECT * FROM model_profiles WHERE id=?", (pid,)))
 
 
-def call_model(profile: dict, prompt: str, system_prompt: str = "") -> str:
+def _bounded_model_json(response, deadline, limit):
+    chunks=[];size=0
+    while True:
+        remaining=deadline-time.monotonic()
+        if remaining<=0:raise TimeoutError('模型调用超时，请检查模型或重试')
+        # Bound the whole transfer even if the peer keeps trickling bytes.
+        try:response.fp.raw._sock.settimeout(remaining)
+        except AttributeError:pass
+        block=response.read1(min(65536,limit-size+1))
+        if not block:break
+        chunks.append(block);size+=len(block)
+        if size>limit:raise ValueError('模型返回超过允许大小')
+    return json.loads(b''.join(chunks))
+
+
+def call_model(profile: dict, prompt: str, system_prompt: str = "", timeout: float = 80) -> str:
+    deadline = time.monotonic() + max(.05,float(timeout))
     provider = profile["provider"]
     messages = ([{"role": "system", "content": system_prompt}] if system_prompt else []) + [{"role": "user", "content": prompt}]
     if provider == "ollama":
@@ -1318,7 +1335,7 @@ def call_model(profile: dict, prompt: str, system_prompt: str = "") -> str:
             raise ValueError("Ollama 地址不在本机")
         if "cloud" in profile["model"].lower():
             raise ValueError("严格本地模式不允许选择云端模型名称")
-        if profile["model"] not in available_ollama(profile["base_url"]):
+        if profile["model"] not in available_ollama(profile["base_url"],timeout=min(5,max(.05,deadline-time.monotonic()))):
             raise ValueError("该模型不在本机 Ollama 已安装列表中")
         endpoint = profile["base_url"] + "/api/chat"
         request_body = {"model": profile["model"], "messages": messages, "stream": False}
@@ -1334,8 +1351,10 @@ def call_model(profile: dict, prompt: str, system_prompt: str = "") -> str:
         def redirect_request(self, request, fp, code, msg, headers, newurl):
             raise ValueError("模型地址发生跳转，请核对 API 地址")
 
-    with urllib.request.build_opener(NoRedirect).open(req, timeout=80) as response:
-        answer = json.loads(response.read(4 * 1024 * 1024))
+    remaining = deadline - time.monotonic()
+    if remaining <= 0: raise TimeoutError('模型调用超时，请检查模型或重试')
+    with urllib.request.build_opener(NoRedirect).open(req, timeout=remaining) as response:
+        answer=_bounded_model_json(response,deadline,4*1024*1024)
     if provider == "ollama":
         return str(answer.get("message", {}).get("content") or "").strip()
     return str(answer.get("choices", [{}])[0].get("message", {}).get("content") or "").strip()
@@ -1345,13 +1364,16 @@ def model_list():
     return [model_public(p) for p in rows("SELECT * FROM model_profiles ORDER BY created_at DESC")]
 
 
-def available_ollama(base="http://127.0.0.1:11434"):
+def available_ollama(base="http://127.0.0.1:11434",timeout=5):
     from urllib.parse import urlparse
     if urlparse(base).hostname not in ("localhost", "127.0.0.1", "::1"):
         raise ValueError("只允许检测本机 Ollama")
+    deadline=time.monotonic()+max(.05,float(timeout))
     try:
-        with urllib.request.urlopen(base.rstrip("/") + "/api/tags", timeout=5) as response:
-            data = json.loads(response.read(2 * 1024 * 1024))
+        with urllib.request.urlopen(base.rstrip("/") + "/api/tags", timeout=timeout) as response:
+            data = _bounded_model_json(response,deadline,2*1024*1024)
+    except TimeoutError:
+        raise
     except (OSError, ValueError) as exc:
         raise ValueError("未连接到 Ollama。请确认它已启动，并检查本机地址与端口。") from exc
     return [m.get("name") for m in data.get("models", []) if m.get("name") and "cloud" not in m.get("name", "").lower()]

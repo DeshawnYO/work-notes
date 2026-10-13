@@ -8,8 +8,12 @@ def scratch(data,nid=None):
     if not richtext.plain(body): raise ValueError('请输入记录内容或粘贴图片')
     stamp=core.now()
     with core.db() as con:
+        con.execute('BEGIN IMMEDIATE')
         if nid:
-            if not con.execute('SELECT id FROM scratch_notes WHERE id=?',(nid,)).fetchone(): raise FileNotFoundError('记录不存在')
+            old=con.execute('SELECT body_html FROM scratch_notes WHERE id=?',(nid,)).fetchone()
+            if not old: raise FileNotFoundError('记录不存在')
+            if 'expected_body' in data and old['body_html']!=data['expected_body']:
+                raise ValueError('记录已在其他页面修改，当前输入保留；请复制内容后重新读取')
             con.execute('UPDATE scratch_notes SET body_html=?,updated_at=? WHERE id=?',(body,stamp,nid))
         else:
             nid=core.uid(); con.execute('INSERT INTO scratch_notes(id,body_html,created_at,updated_at) VALUES(?,?,?,?)',(nid,body,stamp,stamp))

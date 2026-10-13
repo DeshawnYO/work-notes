@@ -30,16 +30,16 @@ archiveView=function(p){
 };
 projectsView=function(){
   const markup=v22LegacyProjects();const container=document.createElement('div');container.innerHTML=markup;
-  const subtitle=container.querySelector('.page-head p');if(subtitle)subtitle.textContent='管理项目列表与项目档案，人工保存与 AI 生成均保留历史。';
+  const subtitle=container.querySelector('.page-head p');if(subtitle)subtitle.textContent='管理项目档案与需求清单，支持 Excel 导入导出。';
   const tabs=container.querySelector('.project-detail>.tabs');
   if(state.projectTab==='文件'||state.personalFiles){if(tabs)tabs.innerHTML='<button class="outline-btn" data-action="v22-return-dossier">返回项目档案</button>';}
-  else tabs?.remove();
+  else if(tabs)tabs.innerHTML=['档案','需求'].map(tab=>`<button class="tab ${state.projectTab===tab?'active':''}" data-action="project-tab" data-tab="${tab}">${tab==='档案'?'项目档案':'需求管理'}</button>`).join('');
   return container.innerHTML;
 };
 
 function v22ReportDialog(kind){
   const profile=state.data.models.find(x=>x.id===state.data.active_model);
-  state.modalKind='v22-report';modalContent.innerHTML=`<div class="modal-inner"><h2>生成${kind} · 选择时间</h2><p>开始与结束日期均需手动指定。只提炼所选期间的工作事实，项目档案用于补充上下文。</p><form id="v22-report-form" data-kind="${kind}"><div class="form-grid"><label class="field">开始日期<input type="date" name="start" required></label><label class="field">结束日期<input type="date" name="end" max="${localDate(new Date())}" required></label><label class="field full">生成方式<select name="use_ai"><option value="true" ${!profile?'disabled':''}>AI 提炼${profile?' · '+esc(profile.name):'（需先启用模型）'}</option><option value="false" ${!profile?'selected':''}>事实底稿（不调用模型）</option></select></label></div><div id="v22-report-preview" role="status"></div><div class="form-actions"><button type="button" class="outline-btn" data-action="close-modal">取消</button><button class="primary-btn" type="submit">核对范围与来源</button></div></form></div>`;
+  state.modalKind='v22-report';modalContent.innerHTML=`<div class="modal-inner"><h2>创建报告</h2><form id="v22-report-form"><div class="form-grid"><label class="field full">报告类型<select name="kind"><option value="周报" ${kind==='周报'?'selected':''}>周报</option><option value="月报" ${kind==='月报'?'selected':''}>月报</option></select></label><label class="field">开始日期<input type="date" name="start" max="${localDate(new Date())}" required></label><label class="field">结束日期<input type="date" name="end" max="${localDate(new Date())}" required></label><label class="field full">创建方式<select name="mode" disabled><option value="ai" ${!profile?'disabled':''}>AI 自动生成${profile?' · '+esc(profile.name):'（需先启用模型）'}</option><option value="manual" ${!profile?'selected':''}>手动创建</option></select></label></div><p class="hint">先选择时间范围，再选择创建方式。AI 将在后台总结工作事项；手动创建从空白正文开始。</p><div id="v22-report-preview" role="status"></div><div class="form-actions"><button type="button" class="outline-btn" data-action="close-modal">取消</button><button class="primary-btn" type="submit">${profile?'核对范围与来源':'进入编辑'}</button></div></form></div>`;
   decorateControls(modalContent);modal.showModal();
 }
 async function v22GenerateDossier(){
@@ -53,7 +53,11 @@ async function v22GenerateDossier(){
   state.dossierJob=await api('/api/dossier/generate',{method:'POST',body:{project_id:pid,expected_digest:preview.digest}});render();scheduleDossierPoll(pid);
 }
 handleV2=async function(action,el){
-  if(action==='generate-week'||action==='generate-month'){if(state.reportEditing&&state.reportDraft!==state.data.reports.find(r=>r.id===state.report)?.body){showModal('unsaved-report',{nextAction:action});return true}v22ReportDialog(action==='generate-week'?'周报':'月报');return true}
+  if(['create-report','generate-week','generate-month'].includes(action)){if(reportDirty()){showModal('unsaved-report',{nextAction:action});return true}v22ReportDialog(action==='generate-month'?'月报':'周报');return true}
+  if(action==='save-manual-report'){
+    const draft=state.manualReport;if(!draft)return true;setButtonBusy(el,true);
+    try{const saved=await api('/api/reports/manual',{method:'POST',body:{...draft,body:state.reportDraft}});state.manualReport=null;state.report=saved.id;state.reportEditing=false;state.reportDraft=null;await load();toast('报告已保存')}finally{setButtonBusy(el,false)}return true;
+  }
   if(action==='v22-settings-tab'){if(!(await v22DiscardTemplate()))return true;V22.settingsTab=el.dataset.tab;render();return true}
   if(action==='v22-template-kind'){if(!(await v22DiscardTemplate()))return true;V22.templateKind=el.dataset.kind;V22.templateDraft=null;V22.templateOriginal=null;render();return true}
   if(action==='v22-template-reload'){if(!(await v22DiscardTemplate()))return true;V22.templates=null;V22.templateDraft=null;V22.templateOriginal=null;render();return true}
@@ -71,7 +75,12 @@ handleV2=async function(action,el){
   if(action==='close-modal'&&V22.reportBusy){toast('报告正在生成，请等待完成');return true}
   return v22LegacyHandle(action,el);
 };
-document.addEventListener('input',e=>{if(e.target.id==='v22-template-body')V22.templateDraft=e.target.value;if(e.target.closest('#v22-report-form')){e.target.closest('form').dataset.reviewed='';document.getElementById('v22-report-preview').innerHTML='';e.target.closest('form').querySelector('[type=submit]').textContent='核对范围与来源'}});
+function v24ReportFormChanged(form){
+  form.dataset.reviewed='';delete form.dataset.requestId;document.getElementById('v22-report-preview').innerHTML='';
+  form.elements.mode.disabled=!(form.elements.start.value&&form.elements.end.value);
+  form.querySelector('[type=submit]').textContent=form.elements.mode.value==='manual'?'进入编辑':'核对范围与来源';
+}
+document.addEventListener('input',e=>{if(e.target.id==='v22-template-body')V22.templateDraft=e.target.value;const form=e.target.closest('#v22-report-form');if(form)v24ReportFormChanged(form)});
 document.addEventListener('change',async e=>{
   if(e.target.id==='v22-template-project'){const pid=e.target.value;if(!(await v22DiscardTemplate())){e.target.value=V22.templateProject;return}V22.templateProject=pid;V22.templates=null;V22.templateDraft=null;render();return}
   if(!['v22-template-upload','v22-dossier-upload'].includes(e.target.id))return;
@@ -83,12 +92,17 @@ document.addEventListener('change',async e=>{
 });
 document.addEventListener('submit',async e=>{
   if(e.target.id!=='v22-report-form')return;e.preventDefault();if(V22.reportBusy)return;
-  const form=e.target,button=form.querySelector('[type=submit]'),data=Object.fromEntries(new FormData(form));data.kind=form.dataset.kind;data.use_ai=data.use_ai==='true';
+  const form=e.target,button=form.querySelector('[type=submit]'),data=Object.fromEntries(new FormData(form));data.use_ai=data.mode==='ai';
   setButtonBusy(button,true);
   try{
-    if(!form.dataset.reviewed){const p=await api('/api/reports/preview?'+qs({kind:data.kind,start:data.start,end:data.end}));if(data.use_ai&&!p.model)throw new Error('请先启用模型或选择事实底稿');if(data.use_ai&&p.cloud_blocked)throw new Error('包含仅本地项目，请使用本地模型或选择事实底稿');document.getElementById('v22-report-preview').innerHTML=`<div class="v22-generation-preview"><strong>${esc(data.start)} 至 ${esc(data.end)}（包含两端日期）</strong><p>${Object.entries(p.counts).map(([name,count])=>esc(name)+' '+count).join(' · ')}</p><p>${esc(p.template_origin)} · ${data.use_ai?esc(p.model.name)+(p.model.provider==='online'?'：确认后资料发送到所配置云端模型':'：本地处理'):'事实底稿，不调用模型'}</p><p class="hint">项目档案只补充上下文；随手想法不能当作完成成果。${!data.use_ai&&p.template_origin!=='系统默认'?'事实底稿使用系统基础结构，不应用自定义模板。':''}</p></div>`;form.dataset.reviewed='yes';button.textContent='确认生成';return}
-    V22.reportBusy=true;form.querySelectorAll('input,select').forEach(x=>x.disabled=true);button.textContent='正在生成…';const result=await api('/api/reports',{method:'POST',body:data});closeModal();state.report=result.id;state.reportEditing=false;state.reportDraft=null;await load();toast(result.generation.method+'已生成，请核对正文');
-  }catch(error){toast(error.message,true);form.querySelectorAll('input,select').forEach(x=>x.disabled=false)}finally{V22.reportBusy=false;setButtonBusy(button,false)}
+    if(!data.start||!data.end)throw new Error('请选择时间范围');
+    if(data.end<data.start||data.end>localDate(new Date())||(parseDay(data.end)-parseDay(data.start))/86400000>365)throw new Error('请选择有效的时间范围，最多366天，结束日期不能晚于今天');
+    if(!data.use_ai){state.manualReport={kind:data.kind,start:data.start,end:data.end,request_id:crypto.randomUUID()};state.report=null;state.reportEditing=true;state.reportDraft='';closeModal();render();document.getElementById('report-body')?.focus();return}
+    if(!form.dataset.reviewed){const p=await api('/api/reports/preview?'+qs({kind:data.kind,start:data.start,end:data.end}));if(data.use_ai&&!p.model)throw new Error('请先启用模型或选择事实底稿');if(data.use_ai&&p.cloud_blocked)throw new Error('包含仅本地项目，请使用本地模型或选择事实底稿');document.getElementById('v22-report-preview').innerHTML=`<div class="v22-generation-preview"><strong>${esc(data.start)} 至 ${esc(data.end)}（包含两端日期）</strong><p>${Object.entries(p.counts).map(([name,count])=>esc(name)+' '+count).join(' · ')}</p><p>${esc(p.template_origin)} · ${data.use_ai?esc(p.model.name)+(p.model.provider==='online'?'：确认后资料发送到所配置云端模型':'：本地处理'):'事实底稿，不调用模型'}</p><p class="hint">不预加载项目档案，遇到歧义仅查询相关术语片段；随手想法不能当作完成成果。${!data.use_ai&&p.template_origin!=='系统默认'?'事实底稿使用系统基础结构，不应用自定义模板。':''}</p></div>`;form.dataset.reviewed='yes';button.textContent='确认生成';return}
+    V22.reportBusy=true;form.querySelectorAll('input,select').forEach(x=>x.disabled=true);button.textContent='正在提交…';form.dataset.requestId??=crypto.randomUUID();data.request_id=form.dataset.requestId;
+    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
+    try{const job=await api('/api/reports/start',{method:'POST',body:data,signal:controller.signal});closeModal();reportJobSubmitted(job);toast('已在后台生成，可继续使用其他功能')}finally{clearTimeout(timer)}
+  }catch(error){toast(error.name==='AbortError'?'提交等待超时，请查看后台任务状态后再重试':error.message,true);form.querySelectorAll('input,select').forEach(x=>x.disabled=false);button.textContent=form.dataset.reviewed?'确认生成':'核对范围与来源'}finally{V22.reportBusy=false;setButtonBusy(button,false)}
 });
 window.addEventListener('beforeunload',e=>{if(v22TemplateDirty()||V22.reportBusy){e.preventDefault();e.returnValue=''}});
 modal.addEventListener('cancel',e=>{if(V22.reportBusy){e.preventDefault();toast('报告正在生成，请等待完成')}});

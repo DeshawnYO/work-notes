@@ -81,10 +81,9 @@ def report_facts(kind,start,end):
             if p:projects.append(p);known.add(p['id'])
     contexts=[]
     for p in projects:
-        archive=Path(p['root'])/core.ARCHIVE_DIR/'项目档案.md'
-        try:body=archive.read_text(encoding='utf-8') if archive.is_file() else ''
-        except (OSError,UnicodeError):body='档案无法读取，使用项目基础信息'
-        contexts.append({'id':p['id'],'name':p['name'],'background':p['background'],'objective':p['objective'],'local_only':p['local_only'],'archive':body,'role':'上下文；不代表本期完成工作'})
+        # Report preview and initial model input must not read project dossiers.
+        contexts.append({'id':p['id'],'name':p['name'],'local_only':p['local_only'],
+                         'role':'仅用于事项归属；项目档案在模型明确请求澄清时按关键词查询'})
     children=[]
     for t in tasks:
         # Undo later edits in reverse order so an older report does not claim later progress.
@@ -171,35 +170,9 @@ def fact_report(facts):
     return '\n'.join(lines)
 
 def generate_report(kind,start,end,use_ai=True):
-    facts=report_facts(kind,start,end);template=chosen_template('weekly' if kind=='周报' else 'monthly')
-    body=fact_report(facts);method='事实底稿';calls=0;warnings=[]
-    if use_ai:
-        profile=core.one('SELECT * FROM model_profiles WHERE id=?',(core.setting('active_model'),))
-        if not profile:raise ValueError('请先启用模型，或选择生成事实底稿')
-        if profile['provider']!='ollama' and any(p['local_only'] for p in facts['projects']):raise ValueError('报告包含仅本地项目，请切换本地模型或生成事实底稿；未发送资料')
-        parts=[]
-        for group in ('projects','logs','tasks','project_items','major_records','scratch_notes','goals'):
-            parts += [json.dumps({'source_type':group,'record':x},ensure_ascii=False,default=str) for x in facts[group]]
-        summary,calls=reduce_parts(profile,parts,'提取本期工作证据与项目上下文，保留项目名、来源ID、完成/进行中/待确认；临时想法不可算成果，项目档案不可算本期工作。')
-        prompt='严格按模板生成'+kind+'，保持项目名称和顺序；分类、信息不完整处列待补充。不能把模板示例或注释当事实。\n'+json.dumps({'period':[start,end],'projects':facts['project_names'],'template':template['effective'],'evidence':summary},ensure_ascii=False)
-        body=project_dossier.clean(core.call_model(profile,prompt,SAFE_SYSTEM));calls+=1
-        if not body or len(body)>250000:raise ValueError('模型报告为空或过长，未保存报告')
-        if template['origin']=='系统默认':
-            required=['1. 功能开发及优化','2. 项目协同'] if kind=='周报' else ['1. 成果','2. 进展','3. 风险','4. 下月计划']
-            if re.findall(r'^【(.+)】$',body,re.M)!=facts['project_names'] or any(body.count(h)!=len(facts['project_names']) for h in required):raise ValueError('模型输出项目或章节与默认模板不符，请重试；未保存不完整报告')
-            if kind=='周报' and not core.valid_weekly_report(body,facts['project_names']):raise ValueError('模型周报格式不符合模板，请重试；未保存不完整报告')
-        elif any(name not in body for name in facts['project_names']):raise ValueError('模型报告遗漏项目，请重试；未保存不完整报告')
-        method='AI提炼'
-    elif template['origin']!='系统默认':warnings.append('事实底稿按系统基础结构生成，未应用自定义模板；应用自定义模板需启用AI')
-    if facts['scratch_notes']:warnings.append('随手想法仅作参考，未经确认的想法不计入成果')
-    rid=core.uid();meta={key:facts[key] for key in ('kind','counts','project_names','period_start','period_end','end_inclusive')}
-    meta.update(method=method,model_calls=calls,template_origin=template['origin'],template_digest=template['effective_digest'],warnings=warnings)
-    with TEMPLATE_LOCK:
-        if chosen_template(template['kind'])['effective_digest']!=template['effective_digest']:raise ValueError('生成期间模板发生变化，请按最新模板重新生成')
-        with core.db() as con:
-            con.execute('INSERT INTO reports VALUES(?,?,?,?,?,?)',(rid,kind,facts['period_start'],facts['period_end'],body,core.now()))
-            con.execute('INSERT INTO report_inputs VALUES(?,?,?)',(rid,json.dumps(meta,ensure_ascii=False),json.dumps(facts,ensure_ascii=False,default=str)))
-    return core.one('SELECT * FROM reports WHERE id=?',(rid,)) | {'generation':meta}
+    from report_generation import generate_report as generate
+    return generate(kind,start,end,use_ai)
+
 
 def report_sources(rid):
     row=core.one('SELECT metadata,sources FROM report_inputs WHERE report_id=?',(rid,))

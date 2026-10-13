@@ -20,6 +20,8 @@ import app_version
 import major_records
 import workbench_v2
 import v22_services
+import project_requirements
+import report_generation
 
 HOST = "127.0.0.1"
 PORT = int(os.environ.get("PERSONAL_WORKBENCH_PORT", "18763"))
@@ -130,15 +132,31 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send_data(page, content_type="text/html; charset=utf-8")
             if path == '/app-icon.png':
                 return self.send_data((STATIC/'app-icon.png').read_bytes(),content_type='image/png')
-            if path in ("/app.js", "/v2.js", "/v22.js", "/style.css"):
+            if path in ("/app.js", "/v2.js", "/v22.js", "/v23.js", "/report-jobs.js", "/style.css"):
                 mime = "text/javascript; charset=utf-8" if path.endswith(".js") else "text/css; charset=utf-8"
                 return self.send_data((STATIC / path[1:]).read_bytes(), content_type=mime)
             if path == "/api/health":
                 return self.send_data({"app": "personal-workbench", "version": 2, "product_version":app_version.VERSION, "schema_version":app_version.SCHEMA_VERSION, "revision": app_version.REVISION, "installation": str(core.HERE), "data_dir": str(core.DATA)})
+            if path == '/api/requirements':
+                return self.send_data(project_requirements.list_items(query))
+            if path in ('/api/requirements/export', '/api/requirements/template', '/api/requirements/errors'):
+                if path.endswith('/errors'):
+                    body, name = project_requirements.error_workbook(query.get('project_id',''), query.get('token',''))
+                else:
+                    body, name = project_requirements.export(query, template=path.endswith('/template'))
+                return self.send_data(body, content_type=project_requirements.XLSX_MIME,
+                                      extra={'Content-Disposition': "attachment; filename*=UTF-8''" + urllib.parse.quote(name)})
             if path == '/api/desktop/busy':
                 jobs = core.rows("SELECT id,status FROM ai_archive_jobs WHERE status IN ('排队中','运行中','取消中')")
                 jobs += core.rows("SELECT id,status FROM dossier_jobs WHERE status='整理中'")
+                jobs += core.rows("SELECT id,status FROM report_jobs WHERE status IN ('排队中','运行中','取消中')")
                 return self.send_data({"busy": bool(jobs)})
+            if path == '/api/report-jobs':
+                return self.send_data(report_generation.list_jobs())
+            if path == '/api/report-jobs/status':
+                return self.send_data(report_generation.get_job(query.get('id','')))
+            if path == '/api/reports/list':
+                return self.send_data({'reports':core.rows('SELECT * FROM reports ORDER BY created_at DESC,rowid DESC')})
             if path == "/api/bootstrap":
                 result = {"today": core.today(), "week_start": core.week_start(),
                           "removed_projects":core.rows('SELECT id,name FROM projects WHERE deleted_at IS NOT NULL'),
@@ -148,7 +166,7 @@ class Handler(BaseHTTPRequestHandler):
                           "carryover": core.carryover_state(),
                           "logs": core.rows("SELECT * FROM logs ORDER BY event_date DESC,created_at DESC LIMIT 200"),
                           "project_items": core.rows("SELECT * FROM project_items ORDER BY updated_at DESC"),
-                          "reports": core.rows("SELECT * FROM reports ORDER BY created_at DESC LIMIT 40"),
+                          "reports": core.rows("SELECT * FROM reports ORDER BY created_at DESC,rowid DESC"),
                           "models": core.model_list(),
                           "active_model": core.setting("active_model"),
                           "archive_hour": core.setting("archive_hour", "21"),
@@ -261,6 +279,9 @@ class Handler(BaseHTTPRequestHandler):
             return
         path, query = self.get_query()
         try:
+            if path == '/api/requirements/preview' and self.command == 'POST':
+                mapping = json.loads(query['mapping']) if 'mapping' in query else None
+                return self.send_data(project_requirements.preview(query.get('project_id',''), query.get('name',''), self.read_body(10*1024*1024), mapping,query.get('month')))
             if path == "/api/folder-picker":
                 import tkinter as tk
                 from tkinter import filedialog
@@ -285,6 +306,24 @@ class Handler(BaseHTTPRequestHandler):
             if path == '/api/major/import':
                 return self.send_data(major_records.import_file(query.get('name',''),self.read_body(16*1024*1024)))
             data = self.read_json() if self.command != "DELETE" else {}
+            if path == '/api/reports/start' and self.command == 'POST':
+                return self.send_data(report_generation.start_report(data))
+            if path == '/api/reports/manual' and self.command == 'POST':
+                return self.send_data(report_generation.save_manual_report(data))
+            if path == '/api/report-jobs/cancel' and self.command == 'POST':
+                return self.send_data(report_generation.cancel_job(data))
+            if path == '/api/requirements' and self.command == 'POST':
+                return self.send_data(project_requirements.save(data))
+            if path == '/api/requirements/delete' and self.command == 'POST':
+                return self.send_data(project_requirements.remove_or_restore(data))
+            if path == '/api/requirements/restore' and self.command == 'POST':
+                return self.send_data(project_requirements.remove_or_restore(data, restore=True))
+            if path == '/api/requirements/commit' and self.command == 'POST':
+                return self.send_data(project_requirements.commit(data))
+            if path == '/api/requirements/ai' and self.command == 'POST':
+                return self.send_data(project_requirements.create_with_ai(data))
+            if path == '/api/requirements/carryover' and self.command == 'POST':
+                return self.send_data(project_requirements.carryover(data))
             if path == '/api/major' and self.command=='POST':
                 return self.send_data(major_records.create(data))
             if path.startswith('/api/major/draft/') and self.command=='PATCH':
@@ -418,6 +457,7 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     core.init_db()
     major_records.recover()
+    report_generation.recover_jobs()
     server = ThreadingHTTPServer((HOST, PORT), Handler)
     if os.environ.get('PERSONAL_WORKBENCH_DISABLE_SCHEDULER') != '1':
         threading.Thread(target=run_scheduled, daemon=True).start()

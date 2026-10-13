@@ -135,12 +135,12 @@ def make_word(row):
     for label,value in info:
         cells=table.add_row().cells; cells[0].text=label; cells[1].text=value or '待补充'
     for label,value in [('会议逐字稿' if row['kind']=='meeting' else '汇报内容',row['main_html']),
-                        ('会议纪要' if row['kind']=='meeting' else '领导意见',row['side_html'])]:
+                        ('会议纪要' if row['kind']=='meeting' else '汇报结论',row['side_html'])]:
         document.add_heading(label,1)
         if richtext.plain(value) or '<img' in value: richtext.to_docx(document,value)
         else: document.add_paragraph('待补充')
     if row['extra_html']:
-        document.add_heading('补充说明',1); richtext.to_docx(document,row['extra_html'])
+        document.add_heading('补充说明' if row['kind']=='meeting' else '领导意见',1); richtext.to_docx(document,row['extra_html'])
     buffer=io.BytesIO(); document.save(buffer)
     # Reopen the serialized artifact before publishing its path.
     Document(io.BytesIO(buffer.getvalue()))
