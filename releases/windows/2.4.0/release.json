@@ -31,7 +31,7 @@
     "build": 12
   },
   "release_kind": "delivered-installer-with-retrospective-source-snapshot",
-  "source_snapshot_commit": null,
+  "source_snapshot_commit": "ee0c05c6f3560ccf268a15454a48acead64d79a0",
   "source_commit_status": "原包提交前构建，事后逐文件校验源码快照，不是编译时提交",
   "publication_date": "2026-10-14",
   "tag": "v2.4.0",
