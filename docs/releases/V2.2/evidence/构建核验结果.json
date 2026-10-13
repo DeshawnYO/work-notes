@@ -1,0 +1,31 @@
+{
+  "packaged_source_files_matched": 24,
+  "python_syntax_files": 21,
+  "css_generated_consistent": true,
+  "private_database_in_package": false,
+  "license_in_package": true,
+  "old_packages": [
+    {
+      "version": "1.0.0",
+      "sha256": "47e456f3a28809694fb4aa76303d13f620cbc7190e8f88e54aa4608b22d5fdd4",
+      "unchanged": true
+    },
+    {
+      "version": "2.0.0-beta.1",
+      "sha256": "d4494fee225e9e178b6eda2115e85c520e6b6b2db6490b3480a26c3d2187a717",
+      "unchanged": true
+    },
+    {
+      "version": "2.0.0-beta.2",
+      "sha256": "44720ab9ef4eafaab80b7bbcb027d8671c6840163bedcb9653377c1dee0e1c29",
+      "unchanged": true
+    },
+    {
+      "version": "2.1.0",
+      "sha256": "c32c91686b5d899604c72556fc8c8f20d1481a7107b4fbaae186fb99a4d553e4",
+      "unchanged": true
+    }
+  ],
+  "daily_program_replaced": false,
+  "remote_published": false
+}

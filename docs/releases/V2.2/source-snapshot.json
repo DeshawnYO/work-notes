@@ -1,0 +1,177 @@
+{
+  "source_snapshot_commit": "ea5333064ae9d6ec7ce289ed42606a69eb24513d",
+  "source_commit_at_build_time": null,
+  "verification_date": "2026-10-13",
+  "method": "Retrospective match; text LF normalized for Git checkout, binary bytes exact. Not a rebuild from commit.",
+  "source_files_verified": 24,
+  "files": [
+    {
+      "file": "app_version.py",
+      "working_tree_sha256": "c404ff162d915357bf6380ff796a4168874884b283cf92b258513af707aa9018",
+      "git_blob_sha256": "4d90609d6f6e842b815ae78f98b67dea7e535404f4c09ab6143414e260d89ca0",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "build_portable.py",
+      "working_tree_sha256": "2fd3d8b80fbe598883f071629a79cdc21aa7e11161d2135c5660139e0b6e2fe9",
+      "git_blob_sha256": "926b1f1bf2a96ecbd90ea42473a578665eaca2a71fedf515ba0acd69ae203603",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "core.py",
+      "working_tree_sha256": "205c4bd6c1e767b72163bb90d383548eb702f491cee09ec82186a6d793bf939d",
+      "git_blob_sha256": "afb3ecad3114dc46a51792819c7b9b8fc48581624379f3e26fb07b112faed12c",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "data_storage.py",
+      "working_tree_sha256": "b02b460a64709a0889d2658c3255c9609f5f6a860e57354af19d80a2a2f1f15a",
+      "git_blob_sha256": "b02b460a64709a0889d2658c3255c9609f5f6a860e57354af19d80a2a2f1f15a",
+      "normalized_lf_match": true,
+      "exact_bytes_match": true
+    },
+    {
+      "file": "default_templates.py",
+      "working_tree_sha256": "dc15afff13d14b641443f0217dcbb9c99ffcdda087c0a2a4b8875dd6f6c528fe",
+      "git_blob_sha256": "7c448976c2d82e336b9b435450901703b170a881c30391351f3fe78a21f0361e",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "desktop_backend.py",
+      "working_tree_sha256": "5891a1b674188d20eefb2de1628f7b3ebf3284d074cd01f53cda3a158c5ada5e",
+      "git_blob_sha256": "5891a1b674188d20eefb2de1628f7b3ebf3284d074cd01f53cda3a158c5ada5e",
+      "normalized_lf_match": true,
+      "exact_bytes_match": true
+    },
+    {
+      "file": "launcher.py",
+      "working_tree_sha256": "2460880c053a2a6cac01ccd3917fb0c5ab886fc6d99ae71d8491f60b5e64cbcf",
+      "git_blob_sha256": "2460880c053a2a6cac01ccd3917fb0c5ab886fc6d99ae71d8491f60b5e64cbcf",
+      "normalized_lf_match": true,
+      "exact_bytes_match": true
+    },
+    {
+      "file": "major_records.py",
+      "working_tree_sha256": "1bba3b5f433c1950cb0d6ac6b1211f3522b7c407cfd18fd211fc08a569a7ded3",
+      "git_blob_sha256": "1bba3b5f433c1950cb0d6ac6b1211f3522b7c407cfd18fd211fc08a569a7ded3",
+      "normalized_lf_match": true,
+      "exact_bytes_match": true
+    },
+    {
+      "file": "prepare_move.py",
+      "working_tree_sha256": "3d8a8de1aac2ffe3943b7caeb57feda1a2fe4473f2339b75c8eb9bd29b0ec4d4",
+      "git_blob_sha256": "3d8a8de1aac2ffe3943b7caeb57feda1a2fe4473f2339b75c8eb9bd29b0ec4d4",
+      "normalized_lf_match": true,
+      "exact_bytes_match": true
+    },
+    {
+      "file": "project_dossier.py",
+      "working_tree_sha256": "c0d267002ede53d32e373b6460cfa7cc9f4c75687b81e64bc419b3c088e5b37d",
+      "git_blob_sha256": "cee64bab78dc65c6427b6bfbd19401d33bd641a27353f403e0d99d547fd4a429",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "richtext.py",
+      "working_tree_sha256": "86be4ed367e85b9154739812d754fabe541d5d3e1bdfd8630a1cdfaffc26fd90",
+      "git_blob_sha256": "86be4ed367e85b9154739812d754fabe541d5d3e1bdfd8630a1cdfaffc26fd90",
+      "normalized_lf_match": true,
+      "exact_bytes_match": true
+    },
+    {
+      "file": "server.py",
+      "working_tree_sha256": "ba9ba5aaef327a08fbd7573f8ee23517b578675e9757459c48522daefffb8d30",
+      "git_blob_sha256": "57b521c04fa756aea6739f1fe949feae8712f9683f195fb9d6c201f46f6875dc",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "v22_services.py",
+      "working_tree_sha256": "12dd5c1407df401c0956e193ed12b6f6f14b21cce6c3e46dc9b326b65b8f8407",
+      "git_blob_sha256": "2d783bf1e79e7538dbc90288d2f39d0b13bb843b02792b867c930aecd7f4b5b5",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "v2_data.py",
+      "working_tree_sha256": "7884e76e79d2aa00eb407b878adae0d4131b8d48d597008cdfe0b1571ec49d7c",
+      "git_blob_sha256": "047917dd5ea58dc6f4e5b932f384438f04e308466440ba5f866f3d2dcbc58a75",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "workbench_v2.py",
+      "working_tree_sha256": "4e06ee28b3043d5a54403ce063312a687b154fb97d0d04bdacbefa7c21a35324",
+      "git_blob_sha256": "4e06ee28b3043d5a54403ce063312a687b154fb97d0d04bdacbefa7c21a35324",
+      "normalized_lf_match": true,
+      "exact_bytes_match": true
+    },
+    {
+      "file": "static/app-icon.png",
+      "working_tree_sha256": "312f29604eb17d67acf2798cbed6e319536daa23094898513142637da548ebe2",
+      "git_blob_sha256": "312f29604eb17d67acf2798cbed6e319536daa23094898513142637da548ebe2",
+      "normalized_lf_match": true,
+      "exact_bytes_match": true
+    },
+    {
+      "file": "static/app.js",
+      "working_tree_sha256": "79d7850e3bce0a0cc454dfd8c1edbc8b11f7b8e14bb5dc2acf856f10c3d6866f",
+      "git_blob_sha256": "d436c69d68376a607cd4f4a5bf18b0ba3f2aaa164a86aa2577959bdb7d93d6f9",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "static/index.html",
+      "working_tree_sha256": "1661b8dc93b128b23393ab8fa98a3476d63d7f953a9a448b1ad98a7dc943ae2f",
+      "git_blob_sha256": "1fce2bc139c39af61b6b2ca75cc12e527e8f30fca2f0c5ee67bbf9b84267219f",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "static/modern.css",
+      "working_tree_sha256": "985858f8d98ba65f521e5662af3f45180633109f52e40fad5f7f9061bf9c29a5",
+      "git_blob_sha256": "8d4cf5d65b7a5aa6def64f3b466b05d300dcaa0269b776b94fa2e1bf43e160be",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "static/style.css",
+      "working_tree_sha256": "6dec38bdc19fbc314f88d5d851bd930ded67676d6e2ede71215fd8f1614ad8f6",
+      "git_blob_sha256": "b8b768dfa228a484b4aa98967b0a6a08e9d081605de1ecda5e6aac4dd707afd7",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "static/v22.js",
+      "working_tree_sha256": "4dad70ea8991ee930629e895adb834cb24b7e9e84faffa18f8bc2c581a31da72",
+      "git_blob_sha256": "e642c5aa1fb0a3e16a0b49023738469141e2659a2ad137a381f2e89b101dae40",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "packaging/windows/WorkNotes.cs",
+      "working_tree_sha256": "be191475d32b53e504d9487643de27abd190eb11156d5be7cd74e8ebebeb3d5c",
+      "git_blob_sha256": "287d9d5cd89f3702c58aa193f9173ecb69a2cec5f1043981f719c3f4e74abab3",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "packaging/windows/build_installer.py",
+      "working_tree_sha256": "b250c6255b9cf7dd771641a2af7ef3a0150e3bf5de1feae78fc90fbb891a795e",
+      "git_blob_sha256": "15763ca4c848316f54ab2dc31736a119d123e624e17e45ee6b91089d27ba73b1",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    },
+    {
+      "file": "packaging/windows/release_metadata.py",
+      "working_tree_sha256": "5ce3bb70e723fdde8b279c3f923925e83ffeed1c948c400816fe580d39fae242",
+      "git_blob_sha256": "02b240eeb929c58ce7d7d2c6873bed72fce41a5e0835faecace1adc49db50a2c",
+      "normalized_lf_match": true,
+      "exact_bytes_match": false
+    }
+  ]
+}

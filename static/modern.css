@@ -161,3 +161,18 @@
  .workspace,.app-shell,.page-scroll,.major-layout,.major-document,.major-editors{height:auto;overflow:visible;display:block}
  .major-editor-panel,.rte-editor{max-height:none;overflow:visible}
 }
+
+/* V2.2 centralized settings and whole-document archive editing */
+.brand-mark img{width:28px;height:28px;object-fit:contain;border-radius:5px}
+.settings-tabs{display:flex;gap:8px;border-bottom:1px solid var(--border);margin-bottom:24px;padding-bottom:12px;flex-wrap:wrap}
+.settings-tabs .tab.active{color:var(--accent);border-bottom:2px solid var(--accent)}
+.v22-settings-content{max-width:900px}.v22-settings-content .settings-card{padding:20px 0}
+.v22-template-layout{display:grid;grid-template-columns:170px minmax(0,1fr);gap:24px}
+.v22-template-layout nav{display:flex;flex-direction:column;gap:8px}
+.v22-template-editor{min-width:0;max-width:1100px}.v22-template-editor h2{font-size:18px}
+#v22-template-body{width:100%;min-height:360px;resize:vertical;margin-top:8px;font:13px/1.7 Consolas,'Microsoft YaHei',sans-serif}
+.v22-template-preview{white-space:pre-wrap;overflow-wrap:anywhere;max-height:380px;overflow:auto;padding:16px;background:var(--surface-soft)}
+.v22-dossier-editor{width:100%;min-height:460px}.v22-dossier-reader{max-width:1100px;padding:16px 0}
+.v22-generation-preview{padding:16px;margin:12px 0;border:1px solid var(--border);border-radius:8px}
+.disabled{opacity:.5;pointer-events:none}
+@media(max-width:767px){.v22-template-layout{grid-template-columns:1fr;gap:16px}.v22-template-layout nav{flex-direction:row;flex-wrap:wrap}.v22-template-layout .project-choice{flex:1;min-width:80px}.v22-template-editor .spread{flex-wrap:wrap}.v22-dossier-editor{min-height:360px}.v22-template-editor .form-actions{flex-wrap:wrap}}

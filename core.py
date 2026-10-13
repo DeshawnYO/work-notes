@@ -282,11 +282,7 @@ def create_project(data: dict):
     archive.mkdir(exist_ok=True)
     (archive / "每日进展").mkdir(exist_ok=True)
     (archive / "历史版本").mkdir(exist_ok=True)
-    main = archive / "项目档案.md"
-    if not main.exists():
-        main.write_text(f"# {name}｜项目档案\n\n> 已接入，资料尚待整理。\n", encoding="utf-8")
-    scan_project(pid)
-    update_archive(pid, force=True)
+    # V2.2: connecting a folder never reads its contents or invokes a model.
     return one("SELECT * FROM projects WHERE id=?", (pid,))
 
 
@@ -1063,6 +1059,8 @@ def archive_markdown(project: dict, data: dict, summary: str, note: str):
 
 def update_archive(pid: str, force=False):
     with RUN_LOCK:
+        if setting("dossier_deleted_"+pid):
+            return {"status":"档案已删除，保留空状态","project_id":pid}
         if one('SELECT project_id FROM project_dossiers WHERE project_id=?',(pid,)):
             project=one('SELECT * FROM projects WHERE id=? AND deleted_at IS NULL',(pid,))
             if not project:raise FileNotFoundError('项目不存在')
@@ -1204,109 +1202,11 @@ def valid_weekly_report(body: str, project_names: list[str]) -> bool:
     return True
 
 
-def generate_report(kind: str, anchor=None, automatic=False):
-    start, end = report_period(kind, anchor)
+def generate_report(kind, anchor=None, automatic=False, period_start=None, period_end=None, use_ai=True):
     if automatic:
-        existing = one("SELECT * FROM reports WHERE kind=? AND period_start=? AND period_end=? ORDER BY created_at DESC LIMIT 1", (kind, start, end))
-        if existing:
-            return existing
-    logs = rows("SELECT l.*,p.name AS project_name,p.local_only FROM logs l LEFT JOIN projects p ON p.id=l.project_id WHERE l.event_date>=? AND l.event_date<? ORDER BY l.event_date,l.created_at", (start, end))
-    goals = rows("SELECT g.*,p.name AS project_name,p.local_only FROM goals g LEFT JOIN projects p ON p.id=g.project_id WHERE g.period_kind=? AND g.week_start=? AND g.status!='已取消' ORDER BY g.created_at", ("周" if kind == "周报" else "月", start))
-    tasks = rows("SELECT t.*,p.name AS project_name,p.local_only FROM tasks t LEFT JOIN projects p ON p.id=t.project_id WHERE (t.completed_at>=? AND t.completed_at<?) OR (t.status NOT IN ('已完成','已取消') AND substr(t.created_at,1,10)<?) ORDER BY t.updated_at", (start, end, end))
-    items = rows("SELECT i.*,p.name AS project_name,p.local_only FROM project_items i JOIN projects p ON p.id=i.project_id WHERE (substr(i.updated_at,1,10)>=? AND substr(i.updated_at,1,10)<?) OR (i.status NOT IN ('已完成','已关闭','已取消') AND substr(i.created_at,1,10)<?) ORDER BY i.updated_at", (start, end, end))
-    file_events = rows("SELECT e.*,p.name AS project_name FROM events e JOIN projects p ON p.id=e.subject_id WHERE e.subject_type='project' AND e.event_type='文件变化' AND substr(e.created_at,1,10)>=? AND substr(e.created_at,1,10)<? ORDER BY e.created_at", (start, end))
-    if automatic and not logs and not goals and not tasks and not items and not file_events:
-        return None
-    if kind == "周报":
-        weekly_tasks = [entry for entry in tasks if entry["status"] != "已取消" and
-                        (start <= entry["updated_at"][:10] < end or
-                         start <= (entry["planned_date"] or "") < end or
-                         start <= (entry["completed_at"] or "")[:10] < end)]
-        weekly_items = [entry for entry in items if entry["status"] != "已取消" and start <= entry["updated_at"][:10] < end]
-        report_projects = rows("SELECT name,local_only FROM projects WHERE deleted_at IS NULL ORDER BY created_at,id")
-        project_names = [project["name"] for project in report_projects]
-        if any(not entry["project_name"] for entry in logs + weekly_tasks):
-            project_names.append("未归属")
-        if not project_names:
-            project_names = ["未归属"]
-        body = weekly_report_body(project_names, logs, weekly_tasks, weekly_items)
-        profile = one("SELECT * FROM model_profiles WHERE id=?", (setting("active_model"),))
-        source = logs + weekly_tasks + weekly_items + goals
-        if profile and (profile["provider"] == "ollama" or not any(entry["local_only"] for entry in source + report_projects)):
-            facts = {"projects": project_names, "period": [start, end], "logs": logs[:100],
-                     "tasks": weekly_tasks[:100], "project_items": weekly_items[:100]}
-            prompt = "请将以下事实整理成工作周报。项目顺序必须与 projects 一致；没有证据的进度写待补充。\n" + json.dumps(facts, ensure_ascii=False, default=str)[:22000]
-            try:
-                candidate = call_model(profile, prompt, WEEKLY_SYSTEM_PROMPT)
-                if valid_weekly_report(candidate, project_names):
-                    body = candidate.rstrip() + "\n"
-            except (OSError, ValueError, RuntimeError, urllib.error.URLError, TimeoutError):
-                pass
-        rid = uid()
-        with db() as con:
-            con.execute("INSERT INTO reports VALUES(?,?,?,?,?,?)", (rid, kind, start, end, body, now()))
-        return one("SELECT * FROM reports WHERE id=?", (rid,))
-    projects = sorted(set((x["project_name"] or "未归属") for x in logs + goals + tasks + items + file_events))
-    lines = [f"# {kind}｜{start} 至 {(date.fromisoformat(end)-timedelta(days=1)).isoformat()}", "", f"> 生成于 {now()}。请核对后用于对外汇报。", ""]
-    if date.fromisoformat(end) > date.today():
-        lines += ["> 当前周期尚未结束，本报告仅截至生成时点。", ""]
-    lines += ["## 本期目标", ""]
-    lines += [f"- [{goal['status']}] {goal['title']}（{goal['project_name'] or '未归属'}）" for goal in goals] or ["本期尚未登记目标。"]
-    lines.append("")
-    lines += ["## 重点工作进展", ""]
-    if not projects:
-        lines.append("本周期暂无已记录的项目工作。")
-    for name in projects:
-        lines += [f"### {name}", ""]
-        matching_logs = [x for x in logs if (x["project_name"] or "未归属") == name]
-        matching_tasks = [x for x in tasks if (x["project_name"] or "未归属") == name]
-        matching_items = [x for x in items if x["project_name"] == name]
-        matching_files = [x for x in file_events if x["project_name"] == name]
-        progress_start = len(lines)
-        for item in matching_logs:
-            lines.append(f"- {item['event_date']}：{item['body']}（工作记录 {item['id'][:8]}）")
-        for item in matching_tasks:
-            if item["completed_at"] and start <= item["completed_at"][:10] < end:
-                lines.append(f"- 已完成事项：{item['title']}（事项 {item['id'][:8]}）")
-        for item in matching_items:
-            if not (start <= item["updated_at"][:10] < end):
-                continue
-            detail = f"；{item['outcome']}" if item["outcome"] else ""
-            owner = f"；跟进 {item['owner']}" if item["owner"] else ""
-            lines.append(f"- {item['kind']} [{item['status']}]：{item['title']}{detail}{owner}（台账 {item['id'][:8]}）")
-        for item in matching_files:
-            change = json.loads(item["payload"])
-            for entry in change.get("changes", [])[:20]:
-                lines.append(f"- 项目文件{entry['kind']}：`{entry['path']}`（仅表明文件变化，具体工作成果请核对）")
-            if change.get("total", 0) > 20:
-                lines.append(f"- 同次扫描另有 {change['total'] - 20} 项文件变化，详见项目档案。")
-        if len(lines) == progress_start:
-            lines.append("- 本周期暂无新增进展；遗留事项见下方。")
-        lines.append("")
-    open_tasks = [x for x in tasks if x["status"] not in ("已完成", "已取消")]
-    open_items = [x for x in items if x["status"] not in ("已完成", "已关闭", "已取消")]
-    lines += ["## 仍需推进与风险", ""]
-    pending = [f"- [{x['status']}] {x['title']}" + (f"，跟进 {x['followup_date']}" if x["followup_date"] else "") for x in open_tasks]
-    pending += [f"- {x['kind']} [{x['status']}] {x['title']}" + (f"，负责人/跟进人 {x['owner']}" if x["owner"] else "") for x in open_items]
-    lines += pending or ["暂无已登记的待推进事项。"]
-    lines += ["", "## 下期计划", "", "请结合最新情况填写下期交付结果及需要协调的事项。", ""]
-    body = "\n".join(lines)
-    profile = one("SELECT * FROM model_profiles WHERE id=?", (setting("active_model"),))
-    if profile:
-        eligible_logs = [x for x in logs if not x["local_only"] or profile["provider"] == "ollama"]
-        eligible_tasks = [x for x in tasks if not x["local_only"] or profile["provider"] == "ollama"]
-        eligible_items = [x for x in items if not x["local_only"] or profile["provider"] == "ollama"]
-        eligible_goals = [x for x in goals if not x["local_only"] or profile["provider"] == "ollama"]
-        context = json.dumps({"goals": eligible_goals[:50], "logs": eligible_logs[:100], "tasks": eligible_tasks[:100], "project_items": eligible_items[:100]}, ensure_ascii=False, default=str)[:22000]
-        summary, note = model_summary("请根据以下事实写一段不超过300字的本期概况；区分完成与进行中；不得发明结果或数字；仅使用提供的资料。\n" + context)
-        if summary:
-            body = body.replace("## 重点工作进展", f"## AI 概况建议（请核对）\n\n{summary}\n\n## 重点工作进展", 1)
-        if profile["provider"] != "ollama" and any(x["local_only"] for x in goals + logs + tasks + items):
-            body = body.replace("## 重点工作进展", "> 仅本地项目未发送给云端模型，以下事实底稿仍含本地记录。\n\n## 重点工作进展", 1)
-    rid = uid()
-    with db() as con:
-        con.execute("INSERT INTO reports VALUES(?,?,?,?,?,?)", (rid, kind, start, end, body, now()))
-    return one("SELECT * FROM reports WHERE id=?", (rid,))
+        return None  # A user must choose dates before report generation.
+    import v22_services
+    return v22_services.generate_report(kind, period_start, period_end, use_ai)
 
 
 def report_docx(report: dict) -> bytes:

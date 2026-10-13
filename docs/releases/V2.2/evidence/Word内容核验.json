@@ -1,0 +1,14 @@
+[
+  {
+    "file": "周报验收.docx",
+    "paragraphs": 12,
+    "contains_expected_title": true,
+    "monthly_sections_verified": null
+  },
+  {
+    "file": "月报验收.docx",
+    "paragraphs": 21,
+    "contains_expected_title": true,
+    "monthly_sections_verified": true
+  }
+]

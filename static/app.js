@@ -56,7 +56,7 @@ function renderMarkdown(value){
       html.push(`<div class="document-table"><table><thead><tr>${header.map(c=>`<th>${markdownInline(c)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${header.map((_,j)=>`<td>${markdownInline(row[j]||'')}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`);continue;
     }
     const item=line.match(/^\s*(?:([-+*])|\d+[.)])\s+(.+)$/);
-    if(item){flushParagraph();const kind=item[1]?'ul':'ol';if(list!==kind){closeList();html.push(`<${kind}>`);list=kind}
+    if(item){flushParagraph();const kind=item[1]?'ul':'ol';if(list!==kind){closeList();const start=kind==='ol'?Math.min(1000000,Number(line.match(/\d+/)[0])||1):1;html.push(`<${kind}${kind==='ol'?` start="${start}"`:''}>`);list=kind}
       const check=item[2].match(/^\[([ xX])\]\s+(.*)$/);
       html.push(`<li>${check?`<input type="checkbox" disabled ${check[1].toLowerCase()==='x'?'checked':''}>${markdownInline(check[2])}`:markdownInline(item[2])}</li>`);continue;
     }
@@ -144,7 +144,7 @@ function renderPaper(markup){
   [...main.childNodes].forEach(child=>{if(child!==heading)content.appendChild(child)});main.appendChild(content);
   if(state.page==='settings'){const add=content.querySelector('[data-action="new-model"]');if(add)heading.querySelector('.head-actions').appendChild(add)}
   if(state.page==='reports'){heading.querySelector('[data-action="generate-week"]')?.classList.replace('outline-btn','primary-btn');heading.querySelector('[data-action="generate-month"]')?.classList.replace('primary-btn','outline-btn')}
-  main.insertAdjacentHTML('beforeend',`<footer class="notebook-footer"><span class="footer-local">${uiIcon('check-circle')}<span>工作笔记 · 本机保存</span></span><span>${chapters[state.page]}</span></footer>`);
+  main.insertAdjacentHTML('beforeend',`<footer class="notebook-footer"><span class="footer-local"><span>工作笔记</span></span><span>${chapters[state.page]}</span></footer>`);
   decorateControls(main);
   if(!changed){content.scrollTop=previousScroll;const target=previousFocus?document.getElementById(previousFocus):focusKey&&[...main.querySelectorAll('[data-action]')].find(button=>['action','id','q','index','date','offset'].map(key=>button.dataset[key]||'').join('|')===focusKey);if(target){target.focus({preventScroll:true});if(selection)target.setSelectionRange(...selection)}}
 }
@@ -227,7 +227,7 @@ async function getArchive(pid){try{const a=await api('/api/dossier?'+qs({project
 function scheduleDossierPoll(pid){clearTimeout(archivePollTimer);if(state.dossierJob?.status!=='整理中')return;archivePollTimer=setTimeout(async()=>{if(state.project!==pid||state.page!=='projects')return;try{state.dossierJob=await api('/api/dossier/job?'+qs({id:state.dossierJob.id}));if(state.dossierJob.status!=='整理中'){state.archive=null;await load();toast(state.dossierJob.detail,state.dossierJob.status==='失败');return}render();scheduleDossierPoll(pid)}catch(e){toast(e.message,true)}},1400)}
 function reportsView(){
   const selected=state.data.reports.find(r=>r.id===state.report);
-  const heading=head('工作报告','将日常记录整理成周报与月报，核对后再用于汇报。',`<button class="outline-btn" data-action="generate-week">生成本周周报</button><button class="primary-btn" data-action="generate-month">生成本月月报</button>`);
+  const heading=head('工作报告','将日常记录整理成周报与月报，核对后再用于汇报。',`<button class="outline-btn" data-action="generate-week">生成周报</button><button class="primary-btn" data-action="generate-month">生成月报</button>`);
   if(!selected)return heading+`<div>${state.data.reports.map(r=>`<div class="panel report-card"><div><strong>${esc(r.kind)} · ${esc(r.period_start)} 至 ${esc(addDays(r.period_end,-1))}</strong><div class="hint">生成于 ${esc(r.created_at.slice(0,16).replace('T',' '))}</div></div><button class="outline-btn" data-action="open-report" data-id="${r.id}">查看与修改</button></div>`).join('')||empty('还没有报告','选择生成周报或月报，先看可追溯的事实底稿。')}</div>`;
   return heading+`<article class="report-sheet"><div class="spread report-heading"><div><h2 class="section-title">${esc(selected.kind)}</h2><div class="report-period">${esc(selected.period_start)} — ${esc(addDays(selected.period_end,-1))}</div><p class="hint">${state.reportEditing?'修改后请保存，下载使用已保存版本。':'可核对正文，再编辑或下载当前已保存版本。'}</p></div><div class="row report-actions">${state.reportEditing?'':`<button class="primary-btn" data-action="edit-report">编辑正文</button>`}<button class="outline-btn" data-action="download-report">下载 Markdown</button><button class="outline-btn" data-action="download-report-docx">下载 Word</button><button class="outline-btn" data-action="close-report">返回列表</button></div></div>${state.reportEditing?`<textarea class="report-textarea" id="report-body" aria-label="报告正文">${esc(state.reportDraft??selected.body)}</textarea><div class="form-actions report-edit-actions"><span class="report-mode-label">编辑正文</span><button class="outline-btn" data-action="cancel-report-edit">取消修改</button><button class="primary-btn" data-action="save-report">保存修改</button></div>`:`<div class="report-reader document-body">${renderMarkdown(selected.body)}</div>`}</article>`;
 }
@@ -326,7 +326,6 @@ async function saveQuick(form){
 async function handle(action,el){
   if(await handleV2(action,el))return;
   if(['generate-week','generate-month'].includes(action)&&state.reportEditing&&state.reportDraft!==state.data.reports.find(r=>r.id===state.report)?.body)return showModal('unsaved-report',{nextAction:action});
-  if(action==='toggle-sidebar'){const collapsed=document.body.classList.toggle('sidebar-collapsed');const label=collapsed?'展开导航':'收起导航';el.setAttribute('aria-label',label);el.innerHTML=`${collapsed?'›':'‹'} <span>${label}</span>`;return}
   if(action==='close-modal')return closeModal();
   if(action==='new-task')return focusQuick('task');
   if(action==='new-interrupt')return focusQuick('interrupt');
@@ -400,7 +399,7 @@ async function handle(action,el){
 }
 
 document.addEventListener('click',async event=>{
-  const pageButton=event.target.closest('[data-page]');if(pageButton){if(pageButton.dataset.projectTab)state.projectTab=pageButton.dataset.projectTab;page(pageButton.dataset.page);return}
+  const pageButton=event.target.closest('[data-page]');if(pageButton){if(pageButton.dataset.page==='projects'){state.personalFiles=false;state.projectTab='档案'}if(pageButton.dataset.projectTab)state.projectTab=pageButton.dataset.projectTab;page(pageButton.dataset.page);return}
   const actionButton=event.target.closest('[data-action]');if(!actionButton||actionButton.disabled)return;
   const waiting=['confirm-carryover','toggle-goal','classify-task','save-home-log','save-dossier','generate-week','generate-month','save-report','activate-model','disable-model','test-model','detect-ollama','save-settings','backup','pick-folder','browse-folder'].includes(actionButton.dataset.action);
   if(waiting)setButtonBusy(actionButton,true);
