@@ -2,7 +2,7 @@
 
 一个以本机文件和数据为中心的个人工作管理工具：把今日待办、工作记录、项目档案与工作报告放在一起，减少重复整理。
 
-当前源码与最新 Windows 预发布版本 **2.2.0-beta.2**，V2.1 首次公开基线保持不变。首次公开源码标签 **`v2.1.0-source.1`** 标识源码快照，不代表已验收的安装包发布。见 [版本规则](VERSIONING.md) 与 [更新记录](CHANGELOG.md)。
+当前源码及 Windows 预发布版本 **2.4.0**。下载 [Windows x64 安装包](https://github.com/DeshawnYO/work-notes/releases/download/v2.4.0/Work-Notes-2.4.0-Windows-x64.exe)，查看 [交付与验收范围](docs/releases/V2.4/交付说明.md)。随手记录支持就地编辑与复制，新建框默认收起；报告统一通过“创建报告”选择时间、类型及AI/手动方式。删除页面底部页码；工作汇报使用汇报结论和默认折叠的领导意见。规则见 [V2.4设计与验收](docs/requirements/V2.4/产品设计与验收.md)。保留 [报告后台生成](docs/requirements/V2.3.2/产品设计与验收.md) 与 [月度需求管理](docs/requirements/V2.3.1/产品设计与验收.md)。首次公开源码标签 **`v2.1.0-source.1`** 标识源码快照。实际安装升级、真实模型效果尚未验收；版本与构建追溯见 [版本规则](VERSIONING.md) 与 [更新记录](CHANGELOG.md)。
 
 **仅允许非商业用途。** 自有代码、文档和品牌资源采用 [PolyForm Noncommercial 1.0.0](LICENSE)，版权范围见 [NOTICE.md](NOTICE.md)。允许在许可范围内阅读、研究、修改、分享与共创；商业用途不在本许可授权范围内。第三方组件保留原有许可。
 
@@ -12,6 +12,7 @@
 - **工作记录**：按日期和项目查看工作事实，编辑记录并导出。
 - **重大汇报**：会议逐字稿与纪要、工作汇报图文编辑、Word 归档；分别展示草稿与文件同步状态。
 - **项目管理**：项目列表与档案，支持上传/粘贴/编辑、删除恢复、一键 AI 生成；首份全量，已有档案只读取近7天更新材料。人工保存不受模板结构限制，保留历史与冲突检查。
+- **项目需求**：每项目按月独立需求表，完整描述、首行录入、下拉修改、系统/板块历史值选择、上月未完成递延、Excel预览导入/导出及“一句话需求”AI自动入表。
 - **工作报告**：由用户指定时间，按模板生成、编辑、导出周报与月报；未配置模型时可明确选择事实底稿，不在后台自动生成。
 - **设置**：独立的模型设置、三类模板设置与数据设置，支持全局及项目档案模板继承。
 - **可选 AI**：本机 Ollama 或兼容 Chat Completions 的 HTTPS 接口；可限制项目仅本地处理，AI 结果需要人工核对。
@@ -29,7 +30,7 @@ V2.2 沿用 V2.1 的纸白、细分割线与陶土色点缀的编辑风界面。
 
 ## 下载安装
 
-最新版为 **[2.2.0-beta.2 Windows x64 试用版](https://github.com/DeshawnYO/work-notes/releases/tag/v2.2.0-beta.2)**，可[下载安装包](https://github.com/DeshawnYO/work-notes/releases/download/v2.2.0-beta.2/Work-Notes-2.2.0-beta.2-Windows-x64.exe)。产品规则见 [V2.2 设计与验收](docs/requirements/V2.2/产品设计与验收.md)，核验结果及试用边界见 [V2.2 交付说明](docs/releases/V2.2/交付说明.md)。
+公开最新版为 **[2.2.0-beta.2 Windows x64 试用版](https://github.com/DeshawnYO/work-notes/releases/tag/v2.2.0-beta.2)**，可[下载安装包](https://github.com/DeshawnYO/work-notes/releases/download/v2.2.0-beta.2/Work-Notes-2.2.0-beta.2-Windows-x64.exe)。产品规则见 [V2.2 设计与验收](docs/requirements/V2.2/产品设计与验收.md)，核验结果及试用边界见 [V2.2 交付说明](docs/releases/V2.2/交付说明.md)。
 
 完整目录见 [安装包与历史版本](releases/README.md)。安装前核对校验值，建议使用独立数据与项目副本试用。仅允许非商业用途。
 

@@ -11,7 +11,7 @@ package=folder/('工作笔记-安装包-'+app_version.VERSION+'-Windows-x64.exe'
 with package.open('rb') as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
 (folder/'SHA256.txt').write_text(digest+'  '+package.name+'\n',encoding='utf-8')
 base_commit=subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,capture_output=True,text=True).stdout.strip() or None
-info={'application':'工作笔记','version':app_version.VERSION,'revision':app_version.REVISION,'schema_version':app_version.SCHEMA_VERSION,'source_commit':None,'source_base_commit':base_commit,'source_working_tree_changes':True,'published_remote':False,'channel':'V2.2 本地试用','created_at':datetime.now().isoformat(timespec='seconds'),
+info={'application':'工作笔记','version':app_version.VERSION,'revision':app_version.REVISION,'schema_version':app_version.SCHEMA_VERSION,'source_commit':None,'source_base_commit':base_commit,'source_working_tree_changes':True,'published_remote':False,'channel':app_version.VERSION+' 本地验证版','created_at':datetime.now().isoformat(timespec='seconds'),
       'package':package.name,'size_bytes':package.stat().st_size,'sha256':digest,
       'platform':'Windows 10 1607+ / Windows 11 x64','private_data_included':False,
       'application_code_signed':False,'offline_webview_installer_bundled':True,

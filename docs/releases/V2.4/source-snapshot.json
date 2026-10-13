@@ -1,0 +1,756 @@
+{
+  "source_snapshot_commit": "ee0c05c6f3560ccf268a15454a48acead64d79a0",
+  "source_commit_at_build_time": null,
+  "verification_date": "2026-10-14",
+  "method": "Retrospective source/staging byte comparison. Git text files use LF normalization. Original installer unchanged.",
+  "source_files_verified": 83,
+  "files": [
+    {
+      "file": "ai_archive.py",
+      "working_tree_sha256": "ee68c93369833346d1e97c3dc164efd076930e80d47d06c0292a1fedee45c563",
+      "stage_sha256": "ee68c93369833346d1e97c3dc164efd076930e80d47d06c0292a1fedee45c563",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "ee68c93369833346d1e97c3dc164efd076930e80d47d06c0292a1fedee45c563",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "app_version.py",
+      "working_tree_sha256": "d00a190472705e18c48d76fb040db2500a59c5d185c2625909478df0c549f28f",
+      "stage_sha256": "d00a190472705e18c48d76fb040db2500a59c5d185c2625909478df0c549f28f",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "d00a190472705e18c48d76fb040db2500a59c5d185c2625909478df0c549f28f",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "core.py",
+      "working_tree_sha256": "db0e8c193d0f0a238d52f3174b104d62b5fb00f49019c52a8c5c85460eb52280",
+      "stage_sha256": "db0e8c193d0f0a238d52f3174b104d62b5fb00f49019c52a8c5c85460eb52280",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "db0e8c193d0f0a238d52f3174b104d62b5fb00f49019c52a8c5c85460eb52280",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "data_storage.py",
+      "working_tree_sha256": "b02b460a64709a0889d2658c3255c9609f5f6a860e57354af19d80a2a2f1f15a",
+      "stage_sha256": "b02b460a64709a0889d2658c3255c9609f5f6a860e57354af19d80a2a2f1f15a",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "b02b460a64709a0889d2658c3255c9609f5f6a860e57354af19d80a2a2f1f15a",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "default_templates.py",
+      "working_tree_sha256": "7c448976c2d82e336b9b435450901703b170a881c30391351f3fe78a21f0361e",
+      "stage_sha256": "7c448976c2d82e336b9b435450901703b170a881c30391351f3fe78a21f0361e",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "7c448976c2d82e336b9b435450901703b170a881c30391351f3fe78a21f0361e",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "desktop_backend.py",
+      "working_tree_sha256": "5891a1b674188d20eefb2de1628f7b3ebf3284d074cd01f53cda3a158c5ada5e",
+      "stage_sha256": "5891a1b674188d20eefb2de1628f7b3ebf3284d074cd01f53cda3a158c5ada5e",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "5891a1b674188d20eefb2de1628f7b3ebf3284d074cd01f53cda3a158c5ada5e",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "major_records.py",
+      "working_tree_sha256": "a6f461e508beae48bae49bbc786562c6f46fc2121ccc930bac5dbd704a311bf8",
+      "stage_sha256": "a6f461e508beae48bae49bbc786562c6f46fc2121ccc930bac5dbd704a311bf8",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "a6f461e508beae48bae49bbc786562c6f46fc2121ccc930bac5dbd704a311bf8",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "project_dossier.py",
+      "working_tree_sha256": "cee64bab78dc65c6427b6bfbd19401d33bd641a27353f403e0d99d547fd4a429",
+      "stage_sha256": "cee64bab78dc65c6427b6bfbd19401d33bd641a27353f403e0d99d547fd4a429",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "cee64bab78dc65c6427b6bfbd19401d33bd641a27353f403e0d99d547fd4a429",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "project_requirements.py",
+      "working_tree_sha256": "9fc3f1eb525c52a3252e222d0537e2a55be532c60e4e37fd57b03cb3996852fa",
+      "stage_sha256": "9fc3f1eb525c52a3252e222d0537e2a55be532c60e4e37fd57b03cb3996852fa",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "d7d8b9cbedf996a6b6eb9217b1b8faf64fd8afc676fce851f786ee1f2ccf0e65",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": false
+    },
+    {
+      "file": "report_generation.py",
+      "working_tree_sha256": "837cdccbff26abb828b25c30b3f1b26c5f988a7a4a8abdbbb1ae6d2e35650b68",
+      "stage_sha256": "837cdccbff26abb828b25c30b3f1b26c5f988a7a4a8abdbbb1ae6d2e35650b68",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "837cdccbff26abb828b25c30b3f1b26c5f988a7a4a8abdbbb1ae6d2e35650b68",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "richtext.py",
+      "working_tree_sha256": "86be4ed367e85b9154739812d754fabe541d5d3e1bdfd8630a1cdfaffc26fd90",
+      "stage_sha256": "86be4ed367e85b9154739812d754fabe541d5d3e1bdfd8630a1cdfaffc26fd90",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "86be4ed367e85b9154739812d754fabe541d5d3e1bdfd8630a1cdfaffc26fd90",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "server.py",
+      "working_tree_sha256": "7c6d2799ac273850d67a2ebb0c2ccaf4d227a3b5f40d97f23822f686843cd7d4",
+      "stage_sha256": "7c6d2799ac273850d67a2ebb0c2ccaf4d227a3b5f40d97f23822f686843cd7d4",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "7c6d2799ac273850d67a2ebb0c2ccaf4d227a3b5f40d97f23822f686843cd7d4",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "static/app-icon.png",
+      "working_tree_sha256": "312f29604eb17d67acf2798cbed6e319536daa23094898513142637da548ebe2",
+      "stage_sha256": "312f29604eb17d67acf2798cbed6e319536daa23094898513142637da548ebe2",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "312f29604eb17d67acf2798cbed6e319536daa23094898513142637da548ebe2",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "static/app.js",
+      "working_tree_sha256": "b39717abecf56db578e2b2828afff72688c15fa00c50ce0ad3666e9aa9399253",
+      "stage_sha256": "b39717abecf56db578e2b2828afff72688c15fa00c50ce0ad3666e9aa9399253",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "b54915bdc90a0484ade6ad5930aaa937ba8ca0d8c1e829282421f281afee5a59",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": false
+    },
+    {
+      "file": "static/base.css",
+      "working_tree_sha256": "70a570541e4d31bed6e5b20f8d70b408f6f426c4fd3b44aef718ab387b5c51a8",
+      "stage_sha256": "70a570541e4d31bed6e5b20f8d70b408f6f426c4fd3b44aef718ab387b5c51a8",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "70a570541e4d31bed6e5b20f8d70b408f6f426c4fd3b44aef718ab387b5c51a8",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "static/dossier.css",
+      "working_tree_sha256": "832dd47ee81861e71398d09187b16e09d0f33a4559af671d8be151554e3d32c3",
+      "stage_sha256": "832dd47ee81861e71398d09187b16e09d0f33a4559af671d8be151554e3d32c3",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "46d54a538df221c44f35062a492de8cb5294d632227013ec547db4bf5a26b764",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": false
+    },
+    {
+      "file": "static/experience.css",
+      "working_tree_sha256": "6c5170979de6c2236969778da4886af1baea916b6ad1fa650204de39975f1fd5",
+      "stage_sha256": "6c5170979de6c2236969778da4886af1baea916b6ad1fa650204de39975f1fd5",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "1fe6decc82fa587330dd488e2d4779008786d0a2fee55cac2d3575cb74b07332",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": false
+    },
+    {
+      "file": "static/index.html",
+      "working_tree_sha256": "d6a8d6d7a59af97d3b6bbfbdb6cd074a0693f0e514f3a62ce3cc473875877aaa",
+      "stage_sha256": "d6a8d6d7a59af97d3b6bbfbdb6cd074a0693f0e514f3a62ce3cc473875877aaa",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "d6a8d6d7a59af97d3b6bbfbdb6cd074a0693f0e514f3a62ce3cc473875877aaa",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "static/modern.css",
+      "working_tree_sha256": "ba9dafd1e57939c5bd00babff190111e8bfc9f97905cec7a92e30c5b16929939",
+      "stage_sha256": "ba9dafd1e57939c5bd00babff190111e8bfc9f97905cec7a92e30c5b16929939",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "85e7a43462bb84a94df6acc855feb2c1dc40994ffb206ed40ddaacab2c72017d",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": false
+    },
+    {
+      "file": "static/notebook.css",
+      "working_tree_sha256": "d9850c07ce3124fd8e07e33921dcfe531e1a8ea21d31d1419bfd90bc26379d07",
+      "stage_sha256": "d9850c07ce3124fd8e07e33921dcfe531e1a8ea21d31d1419bfd90bc26379d07",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "d9850c07ce3124fd8e07e33921dcfe531e1a8ea21d31d1419bfd90bc26379d07",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "static/report-jobs.js",
+      "working_tree_sha256": "9f34e0f8f3e5b08a05a53bdc2cc807bf115651465c9947fef47fd2a3a75aaf96",
+      "stage_sha256": "9f34e0f8f3e5b08a05a53bdc2cc807bf115651465c9947fef47fd2a3a75aaf96",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "ec551c900074a09eaa9ba67db053c803db7d6f173f8b8c256ceb32d6e9cdd4a5",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": false
+    },
+    {
+      "file": "static/style.css",
+      "working_tree_sha256": "12de17f898c9c7bced7336b440a6b4b44cda6f7b4ddadcf796558c82aa878ad3",
+      "stage_sha256": "12de17f898c9c7bced7336b440a6b4b44cda6f7b4ddadcf796558c82aa878ad3",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "a00b43574a98131ef2e9c793886be55333e8f56e6299307c59e8f0953b9c2f48",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": false
+    },
+    {
+      "file": "static/v2.js",
+      "working_tree_sha256": "8eed1835c710ec587cc576bd71a520b06e183b717603bebbb2d817e8da42d340",
+      "stage_sha256": "8eed1835c710ec587cc576bd71a520b06e183b717603bebbb2d817e8da42d340",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "0935388f3255a6b27b79b8ec81384d90d40479e1379e59384ad1f7fdb72d54e5",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": false
+    },
+    {
+      "file": "static/v22.js",
+      "working_tree_sha256": "7735e87fd5b2f846c35141ec6031925b0c0c868239a6f7c72b588a521415dbd9",
+      "stage_sha256": "7735e87fd5b2f846c35141ec6031925b0c0c868239a6f7c72b588a521415dbd9",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "0707b30c5299322771dfda1ce8d3ffc4023cc1562d367e812f42fa2bb00685d1",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": false
+    },
+    {
+      "file": "static/v23.js",
+      "working_tree_sha256": "70cd940f1863ea69afa40b7526086700eb23e9435948656a8f7a17dd1fb2ba82",
+      "stage_sha256": "70cd940f1863ea69afa40b7526086700eb23e9435948656a8f7a17dd1fb2ba82",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "b2fd4252fd3ce4b4084394ea01819f2a98bb2f23f707351f6dbab15f6bb8015e",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": false
+    },
+    {
+      "file": "v22_services.py",
+      "working_tree_sha256": "ce8e28e3239039ff1f74f801da642e0895004a3c0814ba7fb9cfbac40870a925",
+      "stage_sha256": "ce8e28e3239039ff1f74f801da642e0895004a3c0814ba7fb9cfbac40870a925",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "64c0d23f3fc9d223a3224ca6a205aa65ef46b4845f2388394481fea98fe8a0aa",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": false
+    },
+    {
+      "file": "v2_data.py",
+      "working_tree_sha256": "611e923b9a3884746c05f66565a55a852fda13ae1abd7abb8854718719be0138",
+      "stage_sha256": "611e923b9a3884746c05f66565a55a852fda13ae1abd7abb8854718719be0138",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "611e923b9a3884746c05f66565a55a852fda13ae1abd7abb8854718719be0138",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/__init__.py",
+      "working_tree_sha256": "612ff566b4378c13c7b1180cb2da89ac0b6cde5500a63fe530e30ae6a88b1b9c",
+      "stage_sha256": "612ff566b4378c13c7b1180cb2da89ac0b6cde5500a63fe530e30ae6a88b1b9c",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "612ff566b4378c13c7b1180cb2da89ac0b6cde5500a63fe530e30ae6a88b1b9c",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_cmap.py",
+      "working_tree_sha256": "0b8eea205808d522a7e4bad3e222b39c6964752b58a3a3b7259904292ee09241",
+      "stage_sha256": "0b8eea205808d522a7e4bad3e222b39c6964752b58a3a3b7259904292ee09241",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "0b8eea205808d522a7e4bad3e222b39c6964752b58a3a3b7259904292ee09241",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_codecs/__init__.py",
+      "working_tree_sha256": "035d44440b70b56ae91953b34d296b0b56b74fd1c29562c1591c067b7fcf7eed",
+      "stage_sha256": "035d44440b70b56ae91953b34d296b0b56b74fd1c29562c1591c067b7fcf7eed",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "035d44440b70b56ae91953b34d296b0b56b74fd1c29562c1591c067b7fcf7eed",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_codecs/_codecs.py",
+      "working_tree_sha256": "e3aa11649c92c06c42269d648c87abee3b3f4d84a38f81acda2d9471edeff9e1",
+      "stage_sha256": "e3aa11649c92c06c42269d648c87abee3b3f4d84a38f81acda2d9471edeff9e1",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "e3aa11649c92c06c42269d648c87abee3b3f4d84a38f81acda2d9471edeff9e1",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_codecs/adobe_glyphs.py",
+      "working_tree_sha256": "b7770314f0eac08cf5c3d07481d5738dd73c7842bd02e4639397fb95a130fdf6",
+      "stage_sha256": "b7770314f0eac08cf5c3d07481d5738dd73c7842bd02e4639397fb95a130fdf6",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "b7770314f0eac08cf5c3d07481d5738dd73c7842bd02e4639397fb95a130fdf6",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_codecs/core_font_metrics.py",
+      "working_tree_sha256": "14b3d66d3678871790597820d63a397b8a972821642846397bce54d9b2c533a9",
+      "stage_sha256": "14b3d66d3678871790597820d63a397b8a972821642846397bce54d9b2c533a9",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "14b3d66d3678871790597820d63a397b8a972821642846397bce54d9b2c533a9",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_codecs/pdfdoc.py",
+      "working_tree_sha256": "c5f4af30562cbf1b9a490d14bbdbd90ca681d16bbce61d6e0a20758bdac07145",
+      "stage_sha256": "c5f4af30562cbf1b9a490d14bbdbd90ca681d16bbce61d6e0a20758bdac07145",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "c5f4af30562cbf1b9a490d14bbdbd90ca681d16bbce61d6e0a20758bdac07145",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_codecs/std.py",
+      "working_tree_sha256": "0f240cb84a40184a52f6ecb58d67f87278fe92a4a13ce0228f9b08ed0d580fc1",
+      "stage_sha256": "0f240cb84a40184a52f6ecb58d67f87278fe92a4a13ce0228f9b08ed0d580fc1",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "0f240cb84a40184a52f6ecb58d67f87278fe92a4a13ce0228f9b08ed0d580fc1",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_codecs/symbol.py",
+      "working_tree_sha256": "9c86864089615822623cc1ebc149661871fefdf397c842af82e466b8a5dc1809",
+      "stage_sha256": "9c86864089615822623cc1ebc149661871fefdf397c842af82e466b8a5dc1809",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "9c86864089615822623cc1ebc149661871fefdf397c842af82e466b8a5dc1809",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_codecs/zapfding.py",
+      "working_tree_sha256": "3d0c63c510bad7a778d711777b15713f55bc9cce10ad97e33b7966b4bc6913fb",
+      "stage_sha256": "3d0c63c510bad7a778d711777b15713f55bc9cce10ad97e33b7966b4bc6913fb",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "3d0c63c510bad7a778d711777b15713f55bc9cce10ad97e33b7966b4bc6913fb",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_crypt_providers/__init__.py",
+      "working_tree_sha256": "2b767a02e5e15d579780b7adf93ba4ab682df47eba3a076ea6cbf1212d429a42",
+      "stage_sha256": "2b767a02e5e15d579780b7adf93ba4ab682df47eba3a076ea6cbf1212d429a42",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "2b767a02e5e15d579780b7adf93ba4ab682df47eba3a076ea6cbf1212d429a42",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_crypt_providers/_base.py",
+      "working_tree_sha256": "fdfe77323eaf8af84464c438bcdc4de46d083a0158fa7e7f95e91ed1cfea88d5",
+      "stage_sha256": "fdfe77323eaf8af84464c438bcdc4de46d083a0158fa7e7f95e91ed1cfea88d5",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "fdfe77323eaf8af84464c438bcdc4de46d083a0158fa7e7f95e91ed1cfea88d5",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_crypt_providers/_cryptography.py",
+      "working_tree_sha256": "f733a4933312b17e1a974454934a8cd1d29f7dc1e47b8c1f9845caf64c28450f",
+      "stage_sha256": "f733a4933312b17e1a974454934a8cd1d29f7dc1e47b8c1f9845caf64c28450f",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "f733a4933312b17e1a974454934a8cd1d29f7dc1e47b8c1f9845caf64c28450f",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_crypt_providers/_fallback.py",
+      "working_tree_sha256": "bec628a30475602015feaf87add21986451cac26fa1ef44134c626d3742d094f",
+      "stage_sha256": "bec628a30475602015feaf87add21986451cac26fa1ef44134c626d3742d094f",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "bec628a30475602015feaf87add21986451cac26fa1ef44134c626d3742d094f",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_crypt_providers/_pycryptodome.py",
+      "working_tree_sha256": "bb8bed2e8ecdbfa02a6513671f5a0d3425af4d86a8c1f4957febe5916def4fab",
+      "stage_sha256": "bb8bed2e8ecdbfa02a6513671f5a0d3425af4d86a8c1f4957febe5916def4fab",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "bb8bed2e8ecdbfa02a6513671f5a0d3425af4d86a8c1f4957febe5916def4fab",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_doc_common.py",
+      "working_tree_sha256": "54a5f4cd06ba5f658a9ed175b9c6224134b3dcf9f98ab11fc4da1f36e02a262e",
+      "stage_sha256": "54a5f4cd06ba5f658a9ed175b9c6224134b3dcf9f98ab11fc4da1f36e02a262e",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "54a5f4cd06ba5f658a9ed175b9c6224134b3dcf9f98ab11fc4da1f36e02a262e",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_encryption.py",
+      "working_tree_sha256": "319f3e012455b473ceb9c51df87f4a45f94eab902f88f14f8e5769901540a1ce",
+      "stage_sha256": "319f3e012455b473ceb9c51df87f4a45f94eab902f88f14f8e5769901540a1ce",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "319f3e012455b473ceb9c51df87f4a45f94eab902f88f14f8e5769901540a1ce",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_font.py",
+      "working_tree_sha256": "50ad53071d7979e53daa4661bf38a0e1823eb6365382007eca20b414b73767bb",
+      "stage_sha256": "50ad53071d7979e53daa4661bf38a0e1823eb6365382007eca20b414b73767bb",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "50ad53071d7979e53daa4661bf38a0e1823eb6365382007eca20b414b73767bb",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_page.py",
+      "working_tree_sha256": "f93c459a77c433dbd2541e94d1fdfa599e486ca5fe3e3efe9348eaf94552639c",
+      "stage_sha256": "f93c459a77c433dbd2541e94d1fdfa599e486ca5fe3e3efe9348eaf94552639c",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "f93c459a77c433dbd2541e94d1fdfa599e486ca5fe3e3efe9348eaf94552639c",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_page_labels.py",
+      "working_tree_sha256": "bfa0a9bba3495c2f5143f05e19d866d39695f19eb3c623d1367eaa129d41b951",
+      "stage_sha256": "bfa0a9bba3495c2f5143f05e19d866d39695f19eb3c623d1367eaa129d41b951",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "bfa0a9bba3495c2f5143f05e19d866d39695f19eb3c623d1367eaa129d41b951",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_protocols.py",
+      "working_tree_sha256": "eeacfdd8b55d3eb6244a97543e9029f54e065b98f13414df55ca545b052110ea",
+      "stage_sha256": "eeacfdd8b55d3eb6244a97543e9029f54e065b98f13414df55ca545b052110ea",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "eeacfdd8b55d3eb6244a97543e9029f54e065b98f13414df55ca545b052110ea",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_reader.py",
+      "working_tree_sha256": "9aaa6780e62c061509f0d3b658dbdac185404fecadac01f7f9d35ac009ce2024",
+      "stage_sha256": "9aaa6780e62c061509f0d3b658dbdac185404fecadac01f7f9d35ac009ce2024",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "9aaa6780e62c061509f0d3b658dbdac185404fecadac01f7f9d35ac009ce2024",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_text_extraction/__init__.py",
+      "working_tree_sha256": "6b7677deb4154e230a1adc2deff6df5e53e8b1b493f2bcc42e8367b74e77fd0c",
+      "stage_sha256": "6b7677deb4154e230a1adc2deff6df5e53e8b1b493f2bcc42e8367b74e77fd0c",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "6b7677deb4154e230a1adc2deff6df5e53e8b1b493f2bcc42e8367b74e77fd0c",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_text_extraction/_layout_mode/__init__.py",
+      "working_tree_sha256": "454408c22530ce778db5c9639d533a8e445a7a6ea980fee6383dbe3019ada6fc",
+      "stage_sha256": "454408c22530ce778db5c9639d533a8e445a7a6ea980fee6383dbe3019ada6fc",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "454408c22530ce778db5c9639d533a8e445a7a6ea980fee6383dbe3019ada6fc",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_text_extraction/_layout_mode/_fixed_width_page.py",
+      "working_tree_sha256": "789bde0dbc8ca281bdef4a893a13394706fd668cb2243ca7cd6a55f5aec84b6d",
+      "stage_sha256": "789bde0dbc8ca281bdef4a893a13394706fd668cb2243ca7cd6a55f5aec84b6d",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "789bde0dbc8ca281bdef4a893a13394706fd668cb2243ca7cd6a55f5aec84b6d",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_text_extraction/_layout_mode/_text_state_manager.py",
+      "working_tree_sha256": "5d5ac88de4dde6349d31ec41431b34b4be48e5150e8ad4663759842ce70a626e",
+      "stage_sha256": "5d5ac88de4dde6349d31ec41431b34b4be48e5150e8ad4663759842ce70a626e",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "5d5ac88de4dde6349d31ec41431b34b4be48e5150e8ad4663759842ce70a626e",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_text_extraction/_layout_mode/_text_state_params.py",
+      "working_tree_sha256": "872c3aa670bcba9064a055542772c7f21048207acdc22a9aa9c632cc8232afa6",
+      "stage_sha256": "872c3aa670bcba9064a055542772c7f21048207acdc22a9aa9c632cc8232afa6",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "872c3aa670bcba9064a055542772c7f21048207acdc22a9aa9c632cc8232afa6",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_text_extraction/_text_extractor.py",
+      "working_tree_sha256": "b54a9bbc2ebd305706406501b7f63caeab1535ffbcb0c171003c8a9da8b4a232",
+      "stage_sha256": "b54a9bbc2ebd305706406501b7f63caeab1535ffbcb0c171003c8a9da8b4a232",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "b54a9bbc2ebd305706406501b7f63caeab1535ffbcb0c171003c8a9da8b4a232",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_utils.py",
+      "working_tree_sha256": "2df8188c0ad153b97d19201bb681b3bbdbd507e7243e2d657b4eb543a7072656",
+      "stage_sha256": "2df8188c0ad153b97d19201bb681b3bbdbd507e7243e2d657b4eb543a7072656",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "2df8188c0ad153b97d19201bb681b3bbdbd507e7243e2d657b4eb543a7072656",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_version.py",
+      "working_tree_sha256": "2416f2ebd53fb332339ad719e9569c95eedc0157bb9e1573ee0205d0d07716aa",
+      "stage_sha256": "2416f2ebd53fb332339ad719e9569c95eedc0157bb9e1573ee0205d0d07716aa",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "2416f2ebd53fb332339ad719e9569c95eedc0157bb9e1573ee0205d0d07716aa",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/_writer.py",
+      "working_tree_sha256": "1819e02d0b0bcd9c1fa483dc5c22e2a7849be22c93474c33c235dd6dd076a4e3",
+      "stage_sha256": "1819e02d0b0bcd9c1fa483dc5c22e2a7849be22c93474c33c235dd6dd076a4e3",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "1819e02d0b0bcd9c1fa483dc5c22e2a7849be22c93474c33c235dd6dd076a4e3",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/annotations/__init__.py",
+      "working_tree_sha256": "7f693ffa3027dfd082076ecac50fdef771a29e7ce40076d49e749e1899758f21",
+      "stage_sha256": "7f693ffa3027dfd082076ecac50fdef771a29e7ce40076d49e749e1899758f21",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "7f693ffa3027dfd082076ecac50fdef771a29e7ce40076d49e749e1899758f21",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/annotations/_base.py",
+      "working_tree_sha256": "79ea1cf6fdb0d798c05212978f8f25d5b07ae98801815fb6bf92085091febf0b",
+      "stage_sha256": "79ea1cf6fdb0d798c05212978f8f25d5b07ae98801815fb6bf92085091febf0b",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "79ea1cf6fdb0d798c05212978f8f25d5b07ae98801815fb6bf92085091febf0b",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/annotations/_markup_annotations.py",
+      "working_tree_sha256": "b162a1181086ed7f688c0bc4691304a093fe7d8e8572b94574e9ad79f219066d",
+      "stage_sha256": "b162a1181086ed7f688c0bc4691304a093fe7d8e8572b94574e9ad79f219066d",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "b162a1181086ed7f688c0bc4691304a093fe7d8e8572b94574e9ad79f219066d",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/annotations/_non_markup_annotations.py",
+      "working_tree_sha256": "676214bdc08e713729261497adec7ff6b8983360fae17c4543fbda735d013515",
+      "stage_sha256": "676214bdc08e713729261497adec7ff6b8983360fae17c4543fbda735d013515",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "676214bdc08e713729261497adec7ff6b8983360fae17c4543fbda735d013515",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/constants.py",
+      "working_tree_sha256": "9f672ef873a6a16e7feb14165442a8e36ad2249d0ff7484bd6cf33fa9174a1cb",
+      "stage_sha256": "9f672ef873a6a16e7feb14165442a8e36ad2249d0ff7484bd6cf33fa9174a1cb",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "9f672ef873a6a16e7feb14165442a8e36ad2249d0ff7484bd6cf33fa9174a1cb",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/errors.py",
+      "working_tree_sha256": "070d56f61c4eb03830ab053a628436974f89894c93aba979423542afe5b81850",
+      "stage_sha256": "070d56f61c4eb03830ab053a628436974f89894c93aba979423542afe5b81850",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "070d56f61c4eb03830ab053a628436974f89894c93aba979423542afe5b81850",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/filters.py",
+      "working_tree_sha256": "237c2d528bdaeccdd68233730b2a74ac634854a9899a34bcebc8d8af5c0b347f",
+      "stage_sha256": "237c2d528bdaeccdd68233730b2a74ac634854a9899a34bcebc8d8af5c0b347f",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "237c2d528bdaeccdd68233730b2a74ac634854a9899a34bcebc8d8af5c0b347f",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/__init__.py",
+      "working_tree_sha256": "56ba9d61fb5010278f0d4dab5d532012a45a60547ccce57f7ef260a35f71feec",
+      "stage_sha256": "56ba9d61fb5010278f0d4dab5d532012a45a60547ccce57f7ef260a35f71feec",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "56ba9d61fb5010278f0d4dab5d532012a45a60547ccce57f7ef260a35f71feec",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/_appearance_stream.py",
+      "working_tree_sha256": "31c0cbd2070a34df4d5cd53a64fc60b7b398a25dbe168356615980c20030e0f3",
+      "stage_sha256": "31c0cbd2070a34df4d5cd53a64fc60b7b398a25dbe168356615980c20030e0f3",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "31c0cbd2070a34df4d5cd53a64fc60b7b398a25dbe168356615980c20030e0f3",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/_base.py",
+      "working_tree_sha256": "f488de45b70b1eb73f94b1947d564c8ee83ca3eb7af17ece35295f9c32a73e64",
+      "stage_sha256": "f488de45b70b1eb73f94b1947d564c8ee83ca3eb7af17ece35295f9c32a73e64",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "f488de45b70b1eb73f94b1947d564c8ee83ca3eb7af17ece35295f9c32a73e64",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/_data_structures.py",
+      "working_tree_sha256": "35f76eb49aa9f253fb1cd3e5eb9e3875b80f9bbc2616c755e376bde054e7b782",
+      "stage_sha256": "35f76eb49aa9f253fb1cd3e5eb9e3875b80f9bbc2616c755e376bde054e7b782",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "35f76eb49aa9f253fb1cd3e5eb9e3875b80f9bbc2616c755e376bde054e7b782",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/_files.py",
+      "working_tree_sha256": "36d4a4468e890608ac8b840ecab56778ef3dd5ba15b2e636e614708a3e97f510",
+      "stage_sha256": "36d4a4468e890608ac8b840ecab56778ef3dd5ba15b2e636e614708a3e97f510",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "36d4a4468e890608ac8b840ecab56778ef3dd5ba15b2e636e614708a3e97f510",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/_fit.py",
+      "working_tree_sha256": "5ff8800c98f5618e0f512b52eeb1560b6c51d8b5154af2ad500932d001402033",
+      "stage_sha256": "5ff8800c98f5618e0f512b52eeb1560b6c51d8b5154af2ad500932d001402033",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "5ff8800c98f5618e0f512b52eeb1560b6c51d8b5154af2ad500932d001402033",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/_image_inline.py",
+      "working_tree_sha256": "2a5000fd91a2446ce368f1b74af6eda8619e36a6d065517e515536302f2efd28",
+      "stage_sha256": "2a5000fd91a2446ce368f1b74af6eda8619e36a6d065517e515536302f2efd28",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "2a5000fd91a2446ce368f1b74af6eda8619e36a6d065517e515536302f2efd28",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/_image_xobject.py",
+      "working_tree_sha256": "7f560334bae2f927a5faaa72ca75c0ee7c7e662493a8061433ce9338414883af",
+      "stage_sha256": "7f560334bae2f927a5faaa72ca75c0ee7c7e662493a8061433ce9338414883af",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "7f560334bae2f927a5faaa72ca75c0ee7c7e662493a8061433ce9338414883af",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/_link.py",
+      "working_tree_sha256": "b4da99d86616c6a80566c948d032d97a85e59ed6b182c1c2f1791615f496c781",
+      "stage_sha256": "b4da99d86616c6a80566c948d032d97a85e59ed6b182c1c2f1791615f496c781",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "b4da99d86616c6a80566c948d032d97a85e59ed6b182c1c2f1791615f496c781",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/_outline.py",
+      "working_tree_sha256": "a8a6cc5f8d8e59faa7a2922213a054cba12f7532c67b766d8da89637ce49a5a6",
+      "stage_sha256": "a8a6cc5f8d8e59faa7a2922213a054cba12f7532c67b766d8da89637ce49a5a6",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "a8a6cc5f8d8e59faa7a2922213a054cba12f7532c67b766d8da89637ce49a5a6",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/_rectangle.py",
+      "working_tree_sha256": "94ea927c58af43180137d2d4f5aa87a313c7f1a08f4c350d81166c34451de9f7",
+      "stage_sha256": "94ea927c58af43180137d2d4f5aa87a313c7f1a08f4c350d81166c34451de9f7",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "94ea927c58af43180137d2d4f5aa87a313c7f1a08f4c350d81166c34451de9f7",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/_utils.py",
+      "working_tree_sha256": "bd30c07ac7c6f9c24d0ca8a5cff91b805a1d0084f37797a3a695871a3bc2a279",
+      "stage_sha256": "bd30c07ac7c6f9c24d0ca8a5cff91b805a1d0084f37797a3a695871a3bc2a279",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "bd30c07ac7c6f9c24d0ca8a5cff91b805a1d0084f37797a3a695871a3bc2a279",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/generic/_viewerpref.py",
+      "working_tree_sha256": "b6a5445a6bddfc359316848ca51393b25d528a338d9ef71267e8d74e8fdc8cea",
+      "stage_sha256": "b6a5445a6bddfc359316848ca51393b25d528a338d9ef71267e8d74e8fdc8cea",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "b6a5445a6bddfc359316848ca51393b25d528a338d9ef71267e8d74e8fdc8cea",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/pagerange.py",
+      "working_tree_sha256": "d9bb76d634199bef5aab66d57f74d7b87f3fc06571edbf53e94acc1570842614",
+      "stage_sha256": "d9bb76d634199bef5aab66d57f74d7b87f3fc06571edbf53e94acc1570842614",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "d9bb76d634199bef5aab66d57f74d7b87f3fc06571edbf53e94acc1570842614",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/papersizes.py",
+      "working_tree_sha256": "e93cf9b1f34dff724e51aa58f3753e95a928867a57600d2148440d98e54b14bf",
+      "stage_sha256": "e93cf9b1f34dff724e51aa58f3753e95a928867a57600d2148440d98e54b14bf",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "e93cf9b1f34dff724e51aa58f3753e95a928867a57600d2148440d98e54b14bf",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/types.py",
+      "working_tree_sha256": "b09ef01f393b111fc227b90ffacf2ef5ac459e40979c5a6bf27cdc8f50314dab",
+      "stage_sha256": "b09ef01f393b111fc227b90ffacf2ef5ac459e40979c5a6bf27cdc8f50314dab",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "b09ef01f393b111fc227b90ffacf2ef5ac459e40979c5a6bf27cdc8f50314dab",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "vendor/pypdf/xmp.py",
+      "working_tree_sha256": "00289e95b3fb680b03cb67e67b8a3d61de32ec7e0a7c46d4337494c4c97c8c8e",
+      "stage_sha256": "00289e95b3fb680b03cb67e67b8a3d61de32ec7e0a7c46d4337494c4c97c8c8e",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "00289e95b3fb680b03cb67e67b8a3d61de32ec7e0a7c46d4337494c4c97c8c8e",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    },
+    {
+      "file": "workbench_v2.py",
+      "working_tree_sha256": "e8dab1fa459bd49ff684ce689948a45452d36f792761dbb69a5c37ccab23b895",
+      "stage_sha256": "e8dab1fa459bd49ff684ce689948a45452d36f792761dbb69a5c37ccab23b895",
+      "exact_bytes_match": true,
+      "git_blob_sha256": "e8dab1fa459bd49ff684ce689948a45452d36f792761dbb69a5c37ccab23b895",
+      "normalized_lf_match": true,
+      "git_exact_bytes_match": true
+    }
+  ]
+}
