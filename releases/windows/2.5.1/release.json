@@ -31,5 +31,7 @@
   },
   "local_package": "工作笔记-安装包-2.5.1-Windows-x64.exe",
   "release_url": "https://github.com/DeshawnYO/work-notes/releases/tag/v2.5.1",
-  "download_url": "https://github.com/DeshawnYO/work-notes/releases/download/v2.5.1/Work-Notes-2.5.1-Windows-x64.exe"
+  "download_url": "https://github.com/DeshawnYO/work-notes/releases/download/v2.5.1/Work-Notes-2.5.1-Windows-x64.exe",
+  "source_snapshot_commit": "eb2e50114e12482a44dba0df08aaa64cec3d1f57",
+  "source_snapshot_method": "Retrospective source/staging comparison. Git text files normalized to LF; binary files compared byte for byte. Original installer unchanged."
 }
