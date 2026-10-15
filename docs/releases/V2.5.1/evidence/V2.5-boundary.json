@@ -1,0 +1,13 @@
+[
+  "stale carry selection rejected",
+  "stale carry atomic rollback",
+  "cross month old removed",
+  "cross month new once",
+  "due only moved",
+  "consecutive carry single latest",
+  "before hour catchup previous day",
+  "catchup no repeats",
+  "after hour current day",
+  "main dossier stays absent",
+  "deleted project excluded"
+]

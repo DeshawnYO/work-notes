@@ -1,0 +1,12 @@
+{
+  "staged_files": 52,
+  "credential_scan": "no credential-shaped values",
+  "private_artifact_scan": "passed",
+  "public_evidence_path_scan": "passed",
+  "python_syntax_files": 25,
+  "javascript_syntax_files": 6,
+  "stylesheet_consistent": true,
+  "installer_sha256": "4c860fa90700fae0cebab4ac729c31d6cf830830ee3a1560c69193f822d9cb02",
+  "installer_bytes": 233176392,
+  "installation_acceptance_performed": false
+}

@@ -547,16 +547,12 @@ def month_task_activity(month: str, project_id: str = "") -> list[dict]:
     sql = ("SELECT * FROM tasks WHERE status!='已取消' AND "
            "((planned_date>=? AND planned_date<?) OR "
            "(substr(completed_at,1,10)>=? AND substr(completed_at,1,10)<?) OR "
-           "(planned_date IS NULL AND substr(created_at,1,10)>=? AND substr(created_at,1,10)<?) OR "
-           "id IN (SELECT task_id FROM task_carryovers WHERE (from_date>=? AND from_date<?) OR (to_date>=? AND to_date<?)))")
-    args = [start, end] * 5
+           "(planned_date IS NULL AND substr(created_at,1,10)>=? AND substr(created_at,1,10)<?))")
+    args = [start, end] * 3
     if project_id:
         sql += " AND project_id=?"
         args.append(project_id)
     activity = []
-    history = {}
-    for entry in rows("SELECT task_id,from_date,to_date FROM task_carryovers WHERE (from_date>=? AND from_date<?) OR (to_date>=? AND to_date<?)", (start, end, start, end)):
-        history.setdefault(entry["task_id"], []).append(entry)
     for task in rows(sql, args):
         planned = task["planned_date"]
         completed = (task["completed_at"] or "")[:10]
@@ -569,12 +565,6 @@ def month_task_activity(month: str, project_id: str = "") -> list[dict]:
                              "activity": "完成" if completed == created else "新增"})
         if completed and start <= completed < end and completed != (planned or created):
             activity.append({**task, "event_date": completed, "activity": "完成"})
-        seen = {item["event_date"] for item in activity if item["id"] == task["id"]}
-        for entry in history.get(task["id"], []):
-            for day in (entry["from_date"], entry["to_date"]):
-                if start <= day < end and day not in seen:
-                    activity.append({**task, "event_date": day, "activity": "顺延记录"})
-                    seen.add(day)
     return sorted(activity, key=lambda item: (item["event_date"], item["created_at"], item["id"]))
 
 

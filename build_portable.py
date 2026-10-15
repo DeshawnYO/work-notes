@@ -22,7 +22,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 DEFAULT_OUTPUT = HERE / "dist" / "个人工作台-便携版"
-APP_FILES = ("core.py", "server.py", "ai_archive.py", "project_dossier.py", "app_version.py", "v2_data.py", "richtext.py", "major_records.py", "workbench_v2.py", "v22_services.py", "default_templates.py", "project_requirements.py", "report_generation.py", "launcher.py", "prepare_move.py", "build_portable.py",
+APP_FILES = ("core.py", "server.py", "ai_archive.py", "project_dossier.py", "app_version.py", "v2_data.py", "richtext.py", "major_records.py", "workbench_v2.py", "v22_services.py", "default_templates.py", "project_requirements.py", "report_generation.py", "daily_organization.py", "launcher.py", "prepare_move.py", "build_portable.py",
              "启动工作台.cmd", "启动工作台.vbs", "准备搬家.cmd", "README.md")
 RUNTIME_FILES = ("python.exe", "pythonw.exe", "python3.dll", "python314.dll", "vcruntime140.dll", "vcruntime140_1.dll", "LICENSE.txt")
 DEPENDENCIES = (

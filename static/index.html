@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="workbench-token" content="__SESSION_TOKEN__">
-  <title>工作笔记 V2.3</title>
+  <title>工作笔记 V__PRODUCT_VERSION__</title>
+  <link rel="icon" href="/app-icon.png" type="image/png">
   <link rel="stylesheet" href="/style.css">
   <script src="/app.js" defer></script>
   <script src="/v2.js" defer></script>
   <script src="/v22.js" defer></script>
   <script src="/v23.js" defer></script>
   <script src="/report-jobs.js" defer></script>
+  <script src="/v25.js" defer></script>
 </head>
 <body>
   <svg class="icon-sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -43,6 +45,7 @@
   </svg>
   <div class="app-shell">
     <aside class="sidebar" aria-label="主导航">
+      <button type="button" class="sidebar-toggle" id="sidebar-toggle" title="收起菜单" aria-label="收起菜单" aria-expanded="true"><svg class="ui-icon" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
       <div class="brand"><span class="brand-mark"><img src="/app-icon.png" alt="" width="28" height="28"></span><div><strong>工作笔记</strong></div></div>
       <nav class="nav-list">
         <button type="button" class="nav-item active" data-page="home" title="今日工作" aria-label="今日工作"><span class="nav-icon"><svg aria-hidden="true" focusable="false"><use href="#i-home"/></svg></span><span class="nav-text">今日工作</span></button>

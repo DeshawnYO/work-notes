@@ -1,0 +1,13 @@
+{
+  "checks": [
+    "changed settings dirty",
+    "reverted settings clean",
+    "settings draft survives navigation",
+    "all reverted clean",
+    "latest filter wins in flight",
+    "served icon matches selected asset",
+    "external origin rejected",
+    "final six pages no JS error"
+  ],
+  "errors": []
+}

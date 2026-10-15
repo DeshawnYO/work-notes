@@ -1,0 +1,19 @@
+{
+  "version": "2.5.1",
+  "revision": "20261015-v2.5.1-1",
+  "schema_version": 8,
+  "stage": "<workspace>/build/windows-app-2.5.1-20261015-195808",
+  "python": "3.14.2 (tags/v3.14.2:df79316, Dec  5 2025, 17:18:21) [MSC v.1944 64 bit (AMD64)]",
+  "source_commit": null,
+  "dependencies": {
+    "python-docx": "1.2.0",
+    "python-pptx": "1.0.2",
+    "lxml": "6.1.1",
+    "Pillow": "12.3.0",
+    "XlsxWriter": "3.2.9",
+    "packaging": "26.0",
+    "typing_extensions": "4.15.0",
+    "openpyxl": "3.1.5",
+    "et_xmlfile": "2.0.0"
+  }
+}

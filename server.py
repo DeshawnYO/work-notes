@@ -22,6 +22,7 @@ import workbench_v2
 import v22_services
 import project_requirements
 import report_generation
+import daily_organization
 
 HOST = "127.0.0.1"
 PORT = int(os.environ.get("PERSONAL_WORKBENCH_PORT", "18763"))
@@ -33,23 +34,7 @@ def run_scheduled():
     """Do one catch-up pass, then check for nightly work while the server runs."""
     while True:
         try:
-            hour = int(core.setting("archive_hour", "21"))
-            stamp = core.today()
-            for project in core.rows("SELECT * FROM projects WHERE deleted_at IS NULL"):
-                # Only maintain daily notes for a dossier already saved explicitly.
-                # Empty/deleted dossiers must stay empty until the user saves or generates.
-                if not core.one("SELECT project_id FROM project_dossiers WHERE project_id=?", (project["id"],)) or core.setting("dossier_deleted_"+project["id"]):
-                    continue
-                last = (project["last_archive_at"] or "")[:10]
-                attempted = core.setting("archive_attempt_" + project["id"])
-                due = (datetime.now().hour >= hour) or (last and last < stamp)
-                if due and attempted != stamp:
-                    core.put_setting("archive_attempt_" + project["id"], stamp)
-                    try:
-                        core.update_archive(project["id"])
-                    except Exception as exc:
-                        with core.db() as con:
-                            con.execute("UPDATE projects SET archive_status=? WHERE id=?", (f"失败：{type(exc).__name__}", project["id"]))
+            daily_organization.scheduled_once()
         except Exception:
             pass
         time.sleep(60)
@@ -128,11 +113,11 @@ class Handler(BaseHTTPRequestHandler):
         path, query = self.get_query()
         try:
             if path == "/":
-                page = (STATIC / "index.html").read_text(encoding="utf-8").replace("__SESSION_TOKEN__", TOKEN)
+                page = (STATIC / "index.html").read_text(encoding="utf-8").replace("__SESSION_TOKEN__", TOKEN).replace("__PRODUCT_VERSION__", app_version.VERSION)
                 return self.send_data(page, content_type="text/html; charset=utf-8")
             if path == '/app-icon.png':
                 return self.send_data((STATIC/'app-icon.png').read_bytes(),content_type='image/png')
-            if path in ("/app.js", "/v2.js", "/v22.js", "/v23.js", "/report-jobs.js", "/style.css"):
+            if path in ("/app.js", "/v2.js", "/v22.js", "/v23.js", "/report-jobs.js", "/v25.js", "/style.css"):
                 mime = "text/javascript; charset=utf-8" if path.endswith(".js") else "text/css; charset=utf-8"
                 return self.send_data((STATIC / path[1:]).read_bytes(), content_type=mime)
             if path == "/api/health":
@@ -150,13 +135,17 @@ class Handler(BaseHTTPRequestHandler):
                 jobs = core.rows("SELECT id,status FROM ai_archive_jobs WHERE status IN ('排队中','运行中','取消中')")
                 jobs += core.rows("SELECT id,status FROM dossier_jobs WHERE status='整理中'")
                 jobs += core.rows("SELECT id,status FROM report_jobs WHERE status IN ('排队中','运行中','取消中')")
-                return self.send_data({"busy": bool(jobs)})
+                return self.send_data({"busy": bool(jobs) or daily_organization.RUN_LOCK.locked()})
             if path == '/api/report-jobs':
                 return self.send_data(report_generation.list_jobs())
             if path == '/api/report-jobs/status':
                 return self.send_data(report_generation.get_job(query.get('id','')))
             if path == '/api/reports/list':
                 return self.send_data({'reports':core.rows('SELECT * FROM reports ORDER BY created_at DESC,rowid DESC')})
+            if path == "/api/organization":
+                return self.send_data(daily_organization.list_runs(query))
+            if path == "/api/organization/run":
+                return self.send_data(daily_organization.get_run(query.get("id", "")))
             if path == "/api/bootstrap":
                 result = {"today": core.today(), "week_start": core.week_start(),
                           "removed_projects":core.rows('SELECT id,name FROM projects WHERE deleted_at IS NOT NULL'),
@@ -170,6 +159,7 @@ class Handler(BaseHTTPRequestHandler):
                           "models": core.model_list(),
                           "active_model": core.setting("active_model"),
                           "archive_hour": core.setting("archive_hour", "21"),
+                          "auto_organize": daily_organization.settings(),
                           "portable_mode": core.PORTABLE_MODE, "data_dir": str(core.DATA),
                           "subtasks":core.rows('SELECT * FROM subtasks ORDER BY created_at,id'),
                           "scratch_notes":core.rows('SELECT * FROM scratch_notes ORDER BY created_at DESC,id'),
@@ -437,6 +427,10 @@ class Handler(BaseHTTPRequestHandler):
                     raise FileNotFoundError("模型配置不存在")
                 answer = core.call_model(profile, "请仅回复：连接成功")
                 return self.send_data({"answer": answer[:200]})
+            if path == "/api/organization/settings" and self.command == "POST":
+                return self.send_data(daily_organization.save_settings(data))
+            if path == "/api/organization/run" and self.command == "POST":
+                return self.send_data(daily_organization.run())
             if path == "/api/settings":
                 hour = int(data.get("archive_hour"))
                 if hour < 0 or hour > 23:

@@ -39,6 +39,7 @@ jobs:
           node --check static/v22.js
           node --check static/v23.js
           node --check static/report-jobs.js
+          node --check static/v25.js
       - name: Verify generated stylesheet is current
         run: |
           python -B scripts/build_notebook_styles.py

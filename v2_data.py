@@ -10,6 +10,7 @@ def migrate(con, stamp):
         migrate_v23(con,stamp)
         migrate_v231(con,stamp)
         migrate_v232(con,stamp)
+        migrate_v25(con,stamp)
         return
     # SQLite DDL participates in this transaction. Failed upgrades leave no marker.
     con.execute('SAVEPOINT migration_v2')
@@ -53,6 +54,7 @@ def migrate(con, stamp):
     migrate_v23(con,stamp)
     migrate_v231(con,stamp)
     migrate_v232(con,stamp)
+    migrate_v25(con,stamp)
 
 
 def migrate_personal_paths(con,stamp):
@@ -148,6 +150,24 @@ def migrate_v231(con, stamp):
         con.execute('RELEASE migration_v231')
     except Exception:
         con.execute('ROLLBACK TO migration_v231');con.execute('RELEASE migration_v231');raise
+
+
+def migrate_v25(con, stamp):
+    if con.execute('SELECT 1 FROM schema_migrations WHERE version=8').fetchone():return
+    con.execute('SAVEPOINT migration_v25')
+    try:
+        con.execute('''CREATE TABLE organization_runs(
+            id TEXT PRIMARY KEY,project_id TEXT NOT NULL,event_date TEXT NOT NULL,
+            trigger TEXT NOT NULL,status TEXT NOT NULL,body TEXT NOT NULL DEFAULT '',
+            file_path TEXT NOT NULL DEFAULT '',error TEXT NOT NULL DEFAULT '',created_at TEXT NOT NULL,
+            FOREIGN KEY(project_id) REFERENCES projects(id))''')
+        con.execute('CREATE INDEX idx_organization_project_date ON organization_runs(project_id,event_date,created_at)')
+        con.execute("INSERT OR IGNORE INTO settings VALUES('auto_organize_enabled','0')")
+        con.execute("INSERT OR IGNORE INTO settings VALUES('auto_organize_projects','[]')")
+        con.execute('INSERT INTO schema_migrations VALUES(8,?)',(stamp,))
+        con.execute('RELEASE migration_v25')
+    except Exception:
+        con.execute('ROLLBACK TO migration_v25');con.execute('RELEASE migration_v25');raise
 
 
 def migrate_v232(con,stamp):
