@@ -15,6 +15,7 @@ using Microsoft.Web.WebView2.WinForms;
 
 [assembly:System.Reflection.AssemblyTitle("工作笔记")]
 [assembly:System.Reflection.AssemblyProduct("工作笔记")]
+[assembly:System.Reflection.AssemblyInformationalVersion("__PRODUCT_VERSION__")]
 [assembly:System.Reflection.AssemblyVersion("2.0.0.0")]
 [assembly:System.Reflection.AssemblyFileVersion("2.0.0.0")]
 
@@ -144,7 +145,7 @@ internal class NotebookForm:Form {
     WebView2 web=new WebView2();NotifyIcon tray;Process backend;string data,url,token;bool exiting=false;System.Windows.Forms.Timer qaTimer;
     RegisteredWaitHandle wakeWait;
     internal NotebookForm(string dataPath) {
-        data=dataPath;Text="工作笔记 V2.2";Icon=Program.AppIcon;Size=new Size(1420,950);MinimumSize=new Size(820,620);StartPosition=FormStartPosition.CenterScreen;
+        data=dataPath;Text="工作笔记 V"+Application.ProductVersion;Icon=Program.AppIcon;Size=new Size(1420,950);MinimumSize=new Size(820,620);StartPosition=FormStartPosition.CenterScreen;
         if(Program.Flag("qa")!=""){StartPosition=FormStartPosition.Manual;Location=new Point(-20000,-20000);}
         wakeWait=ThreadPool.RegisterWaitForSingleObject(Program.WakeSignal,(s,t)=>{Program.Trace("wake received");if(!IsDisposed&&IsHandleCreated)BeginInvoke((Action)ShowNotebook);},null,-1,false);
         web.Dock=DockStyle.Fill;Controls.Add(web);
@@ -193,7 +194,7 @@ internal class NotebookForm:Form {
     }
     async Task<bool> CanExit() {
         if(web.CoreWebView2==null)return true;
-        string dirty=await web.ExecuteScriptAsync("Boolean(state.quickDraft||state.homeLogDraft||state.scratchDraft||typeof M!=='undefined'&&(M.dirty||M.wordBusy||M.aiBusy)||state.reportDraft!==null&&state.reportEditing||typeof dossierDirty==='function'&&dossierDirty()||typeof V22!=='undefined'&&(v22TemplateDirty()||V22.reportBusy)||document.querySelector('.daily-task-edit')||document.querySelector('#modal[open]'))");
+        string dirty=await web.ExecuteScriptAsync("Boolean(state.quickDraft||state.homeLogDraft||state.scratchDraft||typeof M!=='undefined'&&(M.dirty||M.wordBusy||M.aiBusy)||state.reportDraft!==null&&state.reportEditing||typeof dossierDirty==='function'&&dossierDirty()||typeof V22!=='undefined'&&(v22TemplateDirty()||V22.reportBusy)||typeof V25!=='undefined'&&(v25SettingsDirty()||V25.busy)||document.querySelector('.daily-task-edit')||document.querySelector('#modal[open]'))");
         if(dirty=="true"&&MessageBox.Show(this,"有尚未保存的输入。请先保存，或选择继续退出并放弃这些输入。","工作笔记",MessageBoxButtons.OKCancel,MessageBoxIcon.Information)!=DialogResult.OK)return false;
         try{if(Convert.ToBoolean(Get("/api/desktop/busy")["busy"])){MessageBox.Show(this,"项目资料正在处理，请等待完成后再退出或切换数据。","工作笔记");return false;}}catch(WebException){if(backend!=null&&!backend.HasExited){MessageBox.Show(this,"本地服务暂时无法响应，请稍后再退出。","工作笔记");return false;}}
         return true;

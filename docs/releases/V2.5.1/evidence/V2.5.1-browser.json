@@ -1,0 +1,13 @@
+{
+  "checks": [
+    "page version 2.5.1",
+    "HTTP icon matches latest circular PNG",
+    "favicon uses same latest icon",
+    "sidebar brand loaded",
+    "isolated health and version",
+    "no overflow 1440",
+    "no overflow 390",
+    "no page errors"
+  ],
+  "errors": []
+}

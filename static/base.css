@@ -13,7 +13,7 @@
  --serif:var(--sans);
 }
 *,*::before,*::after{box-sizing:border-box}
-body{font:13.5px/1.55 var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+body{margin:0;font:13.5px/1.55 var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
 button,input,select,textarea{font-family:var(--sans);max-width:100%}
 button{cursor:pointer;line-height:1.4}button:disabled{cursor:default}
 h1,h2,h3,h4,strong{font-family:var(--sans);letter-spacing:0}

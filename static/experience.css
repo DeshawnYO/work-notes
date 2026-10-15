@@ -34,15 +34,8 @@ button.is-busy>.ui-icon{display:none}
 .goal-tools[open] .goal-actions{animation:dialog-enter 140ms var(--motion-ease)}
 #toast{animation:toast-enter 170ms var(--motion-ease)}
 @keyframes toast-enter{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-/* 中宽度：导航收起为图标。 */
-@media(max-width:1180px) and (min-width:768px){
- .app-shell>.sidebar{width:64px;padding-left:10px;padding-right:10px}
- .sidebar .brand{padding:0 6px 22px;justify-content:center}
- .sidebar .brand>div,.sidebar .nav-text,.sidebar-toggle span,.sidebar .local-state span:last-child{display:none}
- .sidebar .nav-item{justify-content:center;padding:8px 6px}
- .sidebar .local-state{justify-content:center}
- .workspace>#app-main{padding:20px 24px 8px}
-}
+/* 中宽度的默认折叠交由用户偏好控制，可手动展开。 */
+@media(max-width:1180px) and (min-width:768px){.workspace>#app-main{padding:20px 24px 8px}}
 @media(max-width:1180px){.day-strip{grid-template-columns:auto minmax(0,1fr) auto}.day-strip>.date-extra{grid-column:1/-1;justify-self:end;border:0;padding:0;margin:0}}
 /* 手机：底部章节导航。 */
 @media(max-width:767px){

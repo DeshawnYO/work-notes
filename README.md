@@ -2,7 +2,11 @@
 
 一个以本机文件和数据为中心的个人工作管理工具：把今日待办、工作记录、项目档案与工作报告放在一起，减少重复整理。
 
-当前源码及 Windows 预发布版本 **2.4.0**。下载 [Windows x64 安装包](https://github.com/DeshawnYO/work-notes/releases/download/v2.4.0/Work-Notes-2.4.0-Windows-x64.exe)，查看 [交付与验收范围](docs/releases/V2.4/交付说明.md)。随手记录支持就地编辑与复制，新建框默认收起；报告统一通过“创建报告”选择时间、类型及AI/手动方式。删除页面底部页码；工作汇报使用汇报结论和默认折叠的领导意见。规则见 [V2.4设计与验收](docs/requirements/V2.4/产品设计与验收.md)。保留 [报告后台生成](docs/requirements/V2.3.2/产品设计与验收.md) 与 [月度需求管理](docs/requirements/V2.3.1/产品设计与验收.md)。首次公开源码标签 **`v2.1.0-source.1`** 标识源码快照。实际安装升级、真实模型效果尚未验收；版本与构建追溯见 [版本规则](VERSIONING.md) 与 [更新记录](CHANGELOG.md)。
+当前源码与 Windows 预发布版本 **2.5.1**。[下载 Windows x64 安装包](https://github.com/DeshawnYO/work-notes/releases/download/v2.5.1/Work-Notes-2.5.1-Windows-x64.exe) · [交付与验收范围](docs/releases/V2.5.1/交付说明.md) · [V2.5设计规则](docs/requirements/V2.5/产品设计与验收.md)。
+
+今日事项支持四象限拖动，导航可展开/收起；昨日事项顺延后，工作记录只保留最新计划日期。每日项目数据整理默认关闭，可选择项目、手动执行并集中查看结果。图标使用最新绿色圆形小狗与小黄鸭。保留[后台报告](docs/requirements/V2.3.2/产品设计与验收.md)、[月度需求管理](docs/requirements/V2.3.1/产品设计与验收.md)和[V2.4记录/报告交互](docs/requirements/V2.4/产品设计与验收.md)。
+
+GitHub Release 只保留最新版本供下载；历史源码标签和版本文档保留。隔离流程、浏览器及构建程序启动已有验证，实际安装升级、托盘、卸载与新电脑仍未验收。首次公开源码标签 **`v2.1.0-source.1`** 标识源码快照；追溯规则见 [版本管理](VERSIONING.md) 与 [更新记录](CHANGELOG.md)。
 
 **仅允许非商业用途。** 自有代码、文档和品牌资源采用 [PolyForm Noncommercial 1.0.0](LICENSE)，版权范围见 [NOTICE.md](NOTICE.md)。允许在许可范围内阅读、研究、修改、分享与共创；商业用途不在本许可授权范围内。第三方组件保留原有许可。
 
